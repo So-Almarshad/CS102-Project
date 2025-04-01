@@ -31,7 +31,6 @@ public class AuthorComparator implements Comparator<Book> {
         else if (b1.getAuthor().length()>b2.getAuthor().length()) {
             return -1;
         }
-        System.out.println("");
         return 0;
        
     }
