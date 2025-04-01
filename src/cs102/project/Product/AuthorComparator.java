@@ -32,7 +32,6 @@ public class AuthorComparator implements Comparator<Book> {
             return -1;
         }
         return 0;
-        //abc  abcd
-        //test
+        
     }
 }
