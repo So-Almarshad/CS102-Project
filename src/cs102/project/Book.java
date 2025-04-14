@@ -16,18 +16,26 @@ public class Book extends Product{
     private String isbn;
     private int numberOfPages;
 
-    public Book(String title, String author, String publisher, String genre, String isbn, int numberOfPages, String productId, String brand, String description, double price, int quantity) {
-        super(productId, brand, description, price, quantity);
+    public Book(String productId, String brand, 
+            String name, String description, double price, int quantity, 
+            String title, String author, String publisher, String genre, 
+            String isbn, int numberOfPages) {
+        super(productId, brand, name, description, price, quantity);
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.genre = genre;
-        if(isbn.length()==13)
+        
+        if(isbn.length() == 13)
             this.isbn = isbn;
-        else    throw new IllegalArgumentException("ISBN length should be 13");
-        if (numberOfPages>0)
+        else 
+            throw new IllegalArgumentException("ISBN length should be 13");
+        
+        if (numberOfPages > 0)
             this.numberOfPages = numberOfPages;
-        else throw new IllegalArgumentException("Number of pages should be strictly positive");
+        else 
+            throw new IllegalArgumentException("Number of pages should be "
+                    + "strictly positive");
     }
     
     /******GETTERS & SETTERS******/
@@ -68,7 +76,7 @@ public class Book extends Product{
     }
 
     public void setIsbn(String isbn) {
-        if(isbn.length()==13)
+        if(isbn.length() == 13)
             this.isbn = isbn;
         else    throw new IllegalArgumentException("ISBN length should be 13");
     }
@@ -80,23 +88,24 @@ public class Book extends Product{
     public void setNumberOfPages(int numberOfPages) {
         if (numberOfPages>0)
             this.numberOfPages = numberOfPages;
-        else throw new IllegalArgumentException("Number of pages should be strictly positive");
+        else throw new IllegalArgumentException("Number of pages should be "
+                + "strictly positive");
     }
     
     /******METHODS******/
     @Override
     public int compareTo(Product p){
         //compare to books by title alphabetically
-        if (p==null) 
+        if (p == null) 
             throw new IllegalArgumentException("Cannot compare null");
         
-        Book b=(Book)p;
-        int length=0;
-        if (b.getTitle().length()>this.getTitle().length()) 
-            length=this.getTitle().length();
-        else length=b.getTitle().length();
+        Book b = (Book)p;
+        int length = 0;
+        if (b.getTitle().length() > this.getTitle().length()) 
+            length = this.getTitle().length();
+        else length = b.getTitle().length();
         for (int i = 0; i < length; i++) {
-            if (Character.toLowerCase(this.getTitle().charAt(i))-Character.toLowerCase(b.getTitle().charAt(i))!=0) {
+            if (Character.toLowerCase(this.getTitle().charAt(i)) - Character.toLowerCase(b.getTitle().charAt(i))!=0) {
                 return Character.toLowerCase(this.getTitle().charAt(i))-Character.toLowerCase(b.getTitle().charAt(i));
             }
         }

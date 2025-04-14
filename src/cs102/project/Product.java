@@ -4,23 +4,29 @@
  */
 package CS102.Project;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Saud
  */
-public class Product implements Comparable<Product>{
+public class Product implements Comparable<Product>, Serializable{
     private String productId;
     private String brand;
+    private String name;
     private String description;
     private double price;
     private int quantity;
 
-    public Product(String productId, String brand, String description, double price, int quantity) {
+    public Product(String productId, String brand, String name, String description, double price, int quantity) {
+        
         if (productId.length()==10 && isNumber(productId))
            this.productId = productId;
-        else    throw new IllegalArgumentException("ProductID should be a 10 digit number");
+        else throw new IllegalArgumentException("ProductID should be a 10 digit number");
         
         this.brand = brand;
+        
+        this.name = name;
         
         this.description = description;
         
@@ -30,20 +36,19 @@ public class Product implements Comparable<Product>{
         
         if (quantity>=0)
             this.quantity = quantity;
-        else    throw new IllegalArgumentException("quantity should be positive");
+        else throw new IllegalArgumentException("quantity should be positive");
     }
 
     /******GETTERS & SETTERS******/
     
     public String getProductId(){
-        
         return productId;
     }
 
     public void setProductId(String productId) {
         if (productId.length()==10 && isNumber(productId))
            this.productId = productId;
-        else    throw new IllegalArgumentException("ProductID should be a 10 digit number");
+        else throw new IllegalArgumentException("ProductID should be a 10 digit number");
     }
 
     public String getBrand() {
@@ -67,7 +72,7 @@ public class Product implements Comparable<Product>{
     }
 
     public void setPrice(double price) {
-        if (price>0)
+        if (price > 0)
             this.price = price;
         else throw new IllegalArgumentException("Price should be strictly positive");
     }
@@ -78,9 +83,17 @@ public class Product implements Comparable<Product>{
 
     
     public void setQuantity(int quantity) {
-        if (quantity>=0)
+        if (quantity >= 0)
             this.quantity = quantity;
-        else    throw new IllegalArgumentException("quantity should be positive");
+        else throw new IllegalArgumentException("quantity should be positive");
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
     }
     /******METHODS******/
     
@@ -91,10 +104,10 @@ public class Product implements Comparable<Product>{
         }
         return true;
     }
-  
+    
     @Override
     public int compareTo(Product p){
-        if (p==null) throw new IllegalArgumentException("Cannot compare null");
-        return (int)(this.getPrice()-p.getPrice())*10000;
+        if (p == null) throw new IllegalArgumentException("Cannot compare null");
+        return ((Integer)this.getQuantity()).compareTo(p.getQuantity());
     }
 }

@@ -13,46 +13,51 @@ public class Cloth extends Product{
     private String color;
     private String type;
 
-    public Cloth(int size, String color, String type, String productId, String brand, String description, double price, int quantity) {
-        super(productId, brand, description, price, quantity);
-        if (size>0) 
+    public Cloth(int size, String color, String type, String productId, 
+            String brand, String name, String description, double price, 
+            int quantity) {
+        super(productId, brand, name, description, price, quantity);
+        if (size > 0) 
             this.size = size;
-        else    throw new IllegalArgumentException("Size should be positive");
+        else 
+            throw new IllegalArgumentException("Size should be positive");
         
         this.color = color;
         
-        if (type.equals("Men")|| type.equals("Women")|| type.equals("Children"))
+        if (type.equals("Men") || type.equals("Women") || type.equals("Children"))
            this.type = type;
-        else throw new IllegalArgumentException("Type should be \"Men\",\"Women\",\"Children\"");
+        else 
+            throw new IllegalArgumentException("Type should be \"Men\",\"Women\",\"Children\"");
     }
     
     /******GETTERS AND SETTERS******/
     public int getSize() {
         return size;
     }
-
+    
     public void setSize(int size) {
         if (size>0) 
             this.size = size;
-        else    throw new IllegalArgumentException("Size should be positive");
+        else
+            throw new IllegalArgumentException("Size should be positive");
     }
-
+    
     public String getColor() {
         return color;
     }
-
+    
     public void setColor(String color) {
         this.color = color;
     }
-
+    
     public String getType() {
         return type;
     }
-
+    
     public void setType(String type) {
         if (type.equals("Men")|| type.equals("Women")|| type.equals("Children"))
            this.type = type;
-        else throw new IllegalArgumentException("Type should be \"Men\",\"Women\",\"Children\"");
+        else 
+           throw new IllegalArgumentException("Type should be \"Men\",\"Women\",\"Children\"");
     }
-    
 }

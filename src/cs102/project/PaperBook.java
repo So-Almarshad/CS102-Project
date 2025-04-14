@@ -9,16 +9,32 @@ package CS102.Project;
  *
  * @author SAUD
  */
-public class PaperBook {
+public class PaperBook extends Book{
 
     private double weight;
     private String typeOfCover;
+    private final static String HARD_COVER = "hard-cover";
+    private final static String SOFT_COVER = "soft-cover";
 
-    public PaperBook(double weight, String typeOfCover) {
-        this.weight = weight;
-        this.typeOfCover = typeOfCover;
+    public PaperBook(String productId, String brand, 
+            String name, String description, double price, int quantity, 
+            String title, String author, String publisher, String genre, 
+            String isbn, int numberOfPages, double weight, String typeOfCover) {
+        super(productId, brand, name, description, price, quantity, title, 
+                author, publisher, genre, isbn, numberOfPages);
+        
+        if(weight > 0)
+            this.weight = weight;
+        else
+            throw new IllegalArgumentException("Weight should be strictly "
+                    + "positive");
+        
+        if(typeOfCover.equals(HARD_COVER) || typeOfCover.equals(SOFT_COVER))
+            this.typeOfCover = typeOfCover;
+        else 
+            throw new IllegalArgumentException("Type of cover should be "
+                    + "hard-cover or soft-cover");
     }
-    
     
     /******GETTERS & SETTERS******/
     public double getWeight() {
@@ -26,7 +42,11 @@ public class PaperBook {
     }
 
     public void setWeight(double weight) {
-        this.weight = weight;
+        if(weight > 0)
+            this.weight = weight;
+        else
+            throw new IllegalArgumentException("Weight should be strictly "
+                    + "positive");
     }
 
     public String getTypeOfCover() {
@@ -34,8 +54,10 @@ public class PaperBook {
     }
 
     public void setTypeOfCover(String typeOfCover) {
-        this.typeOfCover = typeOfCover;
+        if(typeOfCover.equals(HARD_COVER) || typeOfCover.equals(SOFT_COVER))
+            this.typeOfCover = typeOfCover;
+        else 
+            throw new IllegalArgumentException("Type of cover must be "
+                    + "hard-cover or soft-cover");
     }
-    
-    
 }

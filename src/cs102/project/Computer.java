@@ -13,17 +13,19 @@ public class Computer extends Product {
     private int processorSpeed;
     private int hardDiskSize;
 
-    public Computer(int memorySize, int processorSpeed, int hardDiskSize, String productId, String brand, String description, double price, int quantity) {
-        super(productId, brand, description, price, quantity);
-        if (memorySize>0)
+    public Computer(int memorySize, int processorSpeed, int hardDiskSize, 
+            String productId, String brand, String name, String description, 
+            double price, int quantity) {
+        super(productId, brand, name, description, price, quantity);
+        if (memorySize > 0)
             this.memorySize = memorySize;
         else throw new IllegalArgumentException("Memory Size should be strictly positive");
         
-        if (processorSpeed>0)
+        if (processorSpeed > 0)
             this.processorSpeed = processorSpeed;
         else throw new IllegalArgumentException("Processor speed should be stictly positive");
         
-        if (hardDiskSize>0)
+        if (hardDiskSize > 0)
            this.hardDiskSize = hardDiskSize;
         else    throw new IllegalArgumentException("Hard disk Size should be strictly positive ");
     }
@@ -35,7 +37,7 @@ public class Computer extends Product {
     }
 
     public void setMemorySize(int memorySize) {
-        if (memorySize>0)
+        if (memorySize > 0)
             this.memorySize = memorySize;
         else throw new IllegalArgumentException("Memory Size should be strictly positive");
     }
@@ -45,7 +47,7 @@ public class Computer extends Product {
     }
 
     public void setProcessorSpeed(int processorSpeed) {
-        if (processorSpeed>0)
+        if (processorSpeed > 0)
             this.processorSpeed = processorSpeed;
         else throw new IllegalArgumentException("Processor speed should be stictly positive");
     }
@@ -57,16 +59,15 @@ public class Computer extends Product {
     public void setHardDiskSize(int hardDiskSize) {
        if (hardDiskSize>0)
            this.hardDiskSize = hardDiskSize;
-        else    throw new IllegalArgumentException("Hard disk Size should be strictly positive ");
+        else throw new IllegalArgumentException("Hard disk Size should be strictly positive");
     }
     
     /******METHODS******/
     @Override
     public int compareTo(Product p){
         //compare two computers by memorySize
-        if (p==null) throw new IllegalArgumentException("Cannot compare null");
-        Computer c=(Computer)p;
+        if (p == null) throw new IllegalArgumentException("Cannot compare null");
+        Computer c = (Computer)p;
         return (int)(this.getMemorySize()-c.getMemorySize())*10000;
     }
-    
 }
