@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package cs102.project.Product;
+package CS102.Project;
 
 /**
  *
