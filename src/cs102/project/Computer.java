@@ -16,7 +16,7 @@ public class Computer extends Product {
     public Computer(int memorySize, int processorSpeed, int hardDiskSize, 
             String productId, String brand, String name, String description, 
             double price, int quantity) {
-        super(productId, brand, name, description, price, quantity);
+        super("Computer", brand, name, description, price, quantity);
         if (memorySize > 0)
             this.memorySize = memorySize;
         else throw new IllegalArgumentException("Memory Size should be strictly positive");

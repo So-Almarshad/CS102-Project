@@ -11,11 +11,10 @@ package CS102.Project;
 public class EBook extends Book{
     private int size;
 
-    public EBook(String productId, String brand, String name, 
-            String description, double price, int quantity, int size, 
-            String title, String author, String publisher,String genre, 
-            String isbn, int numberOfPages) {
-        super(productId, brand, name, description, price, quantity, title, 
+    public EBook(String brand, String name, String description, double price, 
+            int quantity, int size, String title, String author, 
+            String publisher,String genre, String isbn, int numberOfPages) {
+        super("EBook", brand, name, description, price, quantity, title, 
                 author, publisher, genre, isbn, numberOfPages);
         if(size > 0)
             this.size = size;

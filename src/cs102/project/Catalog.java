@@ -10,11 +10,11 @@ import java.io.*;
  *
  * @author abdul
  */
-public class Inventory implements Serializable{
+public class Catalog implements Serializable{
     private HashMap<String, Product> catalog;
     private File inventoryFile;
     
-    public Inventory(String dir) throws Exception {
+    public Catalog(String dir) throws Exception {
         this.inventoryFile = new File(dir);
         loadInventoryData();
     }
@@ -55,7 +55,7 @@ public class Inventory implements Serializable{
     }
     
     /* 
-    * Adds n products to the catalog
+    * Adds n products to the catalog and increases its quantity by n
     */
     public void add(Product product, int n) {
         int quantity = product.getQuantity();
@@ -69,12 +69,35 @@ public class Inventory implements Serializable{
     
     //Removes a product from the catalog and sets its quantity to 0
     public void delete(String productID) {
-        catalog.get(productID).setQuantity(0);
-        catalog.remove(productID);
+        if(catalog.containsKey(productID)) {
+            catalog.get(productID).setQuantity(0);
+            catalog.remove(productID);
+        }
     }
     
-    public void update(String productID, String attribute, String newValue) {
+    // Returns a sorted catalog as a LinkedHashMap using a comparator=
+    public Map<String, Product> getSorted(Comparator<Product> c) {
+        List<Product> list = new ArrayList<>(catalog.values());
+        Collections.sort(list, c);
+        LinkedHashMap<String, Product> sortedCatalog = new LinkedHashMap<>();
+        for(Product p : list) {
+            sortedCatalog.put(p.getProductId(), p);
+        }
+        return sortedCatalog;
+    }
+    
+    public Map<String, Product> searchSorted(Comparator<Product> c) {
         
+        return null;
+    }
+    
+    public Map<String, Product> search(Product key, Comparator<Product> c) {
+        List<Product> list = new ArrayList<>(catalog.values());
+        HashMap<String, Product> result = new HashMap<>();
+        for(Product product : list)
+            if(c.compare(product, key) == 0) 
+                result.put(product.getProductId(), product);
+        return result;
     }
     
     public void close() throws Exception {

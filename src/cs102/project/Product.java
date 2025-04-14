@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @author Saud
  */
 public class Product implements Comparable<Product>, Serializable{
+    private final String CATEGORY;
     private String productId;
     private String brand;
     private String name;
@@ -18,11 +19,8 @@ public class Product implements Comparable<Product>, Serializable{
     private double price;
     private int quantity;
 
-    public Product(String productId, String brand, String name, String description, double price, int quantity) {
-        
-        if (productId.length()==10 && isNumber(productId))
-           this.productId = productId;
-        else throw new IllegalArgumentException("ProductID should be a 10 digit number");
+    public Product(String category, String brand, String name, String description, double price, int quantity) {
+        this.CATEGORY = category;
         
         this.brand = brand;
         
@@ -45,10 +43,8 @@ public class Product implements Comparable<Product>, Serializable{
         return productId;
     }
 
-    public void setProductId(String productId) {
-        if (productId.length()==10 && isNumber(productId))
-           this.productId = productId;
-        else throw new IllegalArgumentException("ProductID should be a 10 digit number");
+    public String getCategory() {
+        return CATEGORY;
     }
 
     public String getBrand() {

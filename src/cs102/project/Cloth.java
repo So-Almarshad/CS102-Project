@@ -16,7 +16,7 @@ public class Cloth extends Product{
     public Cloth(int size, String color, String type, String productId, 
             String brand, String name, String description, double price, 
             int quantity) {
-        super(productId, brand, name, description, price, quantity);
+        super("Cloth", brand, name, description, price, quantity);
         if (size > 0) 
             this.size = size;
         else 
