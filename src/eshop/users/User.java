@@ -3,13 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package CS102.Project;
+package eshop.users;
+
+import java.io.Serializable;
 
 /**
  *
  * @author SAUD
  */
-public class User {
+public class User implements Serializable{
 
     //Missing this requirement "Actors should have distinct usernames."
     
@@ -21,18 +23,21 @@ public class User {
     public User(String username, String password, String name, int age) {
         if (isAlphanumeric(username))
             this.username = username;
-        else    throw new IllegalArgumentException("Username should be alphanumerical");
+        else
+            throw new IllegalArgumentException("Username should be alphanumerical");
         
         if (authorizePassword(password))
             this.password = password;
-        else    throw new IllegalArgumentException("Password should be more than"
+        else
+            throw new IllegalArgumentException("Password should be more than"
                 + " six digits long, contains a letter, contains a number, contains a special character");
         
         this.name = name;
         
         if (age>15)
             this.age = age;
-        else    throw new IllegalArgumentException("Age should be greater than 15");
+        else
+            throw new IllegalArgumentException("Age should be greater than 15");
     }
 
     /******GETTERS & SETTERS******/
@@ -43,7 +48,8 @@ public class User {
     public void setUsername(String username) {
         if (isAlphanumeric(username))
             this.username = username;
-        else    throw new IllegalArgumentException("Username should be alphanumerical");
+        else
+            throw new IllegalArgumentException("Username should be alphanumerical");
     }
 
     public String getPassword() {
@@ -53,7 +59,8 @@ public class User {
     public void setPassword(String password) {
         if (authorizePassword(password))
             this.password = password;
-        else    throw new IllegalArgumentException("Password should be more than"
+        else
+            throw new IllegalArgumentException("Password should be more than"
                 + " six digits long, contains a letter, contains a number, contains a special character");
     }
 
@@ -70,11 +77,11 @@ public class User {
     }
 
     public void setAge(int age) {
-        if (age>15)
+        if (age > 15)
             this.age = age;
-        else    throw new IllegalArgumentException("Age should be greater than 15");
+        else
+            throw new IllegalArgumentException("Age should be greater than 15");
     }
-    
     
     /******METHODS******/
     private static boolean isAlphanumeric(String num){
@@ -90,7 +97,7 @@ public class User {
     private static boolean authorizePassword(String password){
         //Method to check if password is 6 digits long and if it contains a number
         // a letter and a special character
-        int numCount=0,letterCount=0,specialCount=0;
+        int numCount = 0, letterCount = 0, specialCount = 0;
         
         for (int i = 0; i < password.length(); i++) {
             if (Character.isDigit(password.charAt(i)))
@@ -100,9 +107,8 @@ public class User {
             else
                 specialCount++;
         }
-        if (specialCount>0 && letterCount>0 && numCount>0 && password.length()>=6) 
+        if (specialCount > 0 && letterCount > 0 && numCount > 0 && password.length() >= 6) 
             return true;
-        
         else
             return false;
     }
