@@ -11,10 +11,10 @@ package eshop.products;
 public class EBook extends Book{
     private int size;
 
-    public EBook(String brand, String name, String description, double price, 
+    public EBook(Catalog catalog, String brand, String name, String description, double price, 
             int quantity, int size, String title, String author, 
             String publisher,String genre, String isbn, int numberOfPages) {
-        super("EBook", brand, name, description, price, quantity, title, 
+        super(catalog, "EBook", brand, name, description, price, quantity, title, 
                 author, publisher, genre, isbn, numberOfPages);
         if(size > 0)
             this.size = size;

@@ -4,7 +4,6 @@
  */
 package eshop.users;
 
-import eshop.products.Product;
 import java.util.*;
 
 /**
@@ -33,14 +32,22 @@ public class CustomerDatabase {
     //Registers a new customer
     //If a customer with the same username exists, returns false and doesn't register the customer
     public boolean register(Customer customer) {
-        if(customers.containsKey(customer.getName())){
+        if(usernameTaken(customer.getName())){
             return false;
         }
-        customers.put(customer.getName(), customer);
+        customers.put(customer.getEmail(), customer);
         return true;
     }
     
     public void remove(String username) {
         customers.remove(username);
+    }
+    
+    private boolean usernameTaken(String username) {
+        List<Customer> list = new ArrayList<>(customers.values());
+        for(Customer customer : list) 
+            if(customer.getName().equals(username))
+                return true;
+        return false;
     }
 }

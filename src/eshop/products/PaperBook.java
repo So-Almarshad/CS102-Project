@@ -16,11 +16,11 @@ public class PaperBook extends Book{
     private final static String HARD_COVER = "hard-cover";
     private final static String SOFT_COVER = "soft-cover";
 
-    public PaperBook(String brand, String name, String description, 
+    public PaperBook(Catalog catalog, String brand, String name, String description, 
             double price, int quantity, String title, String author, 
             String publisher, String genre, String isbn, int numberOfPages, 
             double weight, String typeOfCover) {
-        super("Paper Book", brand, name, description, price, quantity, title, 
+        super(catalog, "Paper Book", brand, name, description, price, quantity, title, 
                 author, publisher, genre, isbn, numberOfPages);
         
         if(weight > 0)

@@ -16,10 +16,10 @@ public class Book extends Product{
     private String isbn;
     private int numberOfPages;
 
-    public Book(String category, String brand, String name, String description, double price, 
+    public Book(Catalog catalog, String CATEGORY, String brand, String name, String description, double price, 
             int quantity, String title, String author, String publisher, 
             String genre, String isbn, int numberOfPages) {
-        super(category, brand, name, description, price, quantity);
+        super(catalog, CATEGORY, brand, name, description, price, quantity);
         
         this.title = title;
         this.author = author;

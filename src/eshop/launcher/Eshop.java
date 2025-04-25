@@ -27,7 +27,7 @@ public class Eshop {
     private Menu activeMenu;
     private Scanner input;
     private boolean isRunning;
-
+    
     public Eshop(File adminFile, File customerFile, File catalogFile) throws Exception{
         this.adminFile = adminFile;
         this.customerFile = customerFile;
@@ -36,9 +36,10 @@ public class Eshop {
     }
     
     public void launch(Scanner input) {
-        if(isRunning)
+        if(isRunning) {
+            System.out.println("This Eshop is already running");
             return; //maybe throw an exception?
-        
+        }
         isRunning = true;
         this.input = input;
         activeMenu = new MainMenu(this);
@@ -66,7 +67,7 @@ public class Eshop {
     public Catalog getCatalog() {
         return catalog;
     }
-
+    
     public User getActiveUser() {
         return activeUser;
     }

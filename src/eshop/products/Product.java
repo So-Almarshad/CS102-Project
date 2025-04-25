@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @author Saud
  */
 public class Product implements Comparable<Product>, Serializable{
+    private Catalog catalog;
     private final String CATEGORY;
     private String productId;
     private String brand;
@@ -18,9 +19,11 @@ public class Product implements Comparable<Product>, Serializable{
     private String description;
     private double price;
     private int quantity;
-
-    public Product(String category, String brand, String name, String description, double price, int quantity) {
-        this.CATEGORY = category;
+    
+    public Product(Catalog catalog, String CATAGORY, String brand, String name, String description, double price, int quantity) {
+        this.catalog = catalog;
+        
+        this.CATEGORY = CATAGORY;
         
         this.brand = brand;
         
@@ -92,14 +95,6 @@ public class Product implements Comparable<Product>, Serializable{
         this.name = name;
     }
     /******METHODS******/
-    
-    private static boolean isNumber(String num) {
-        for (int i = 0; i < num.length(); i++) {
-            if (!(Character.isDigit(num.charAt(i))))
-                return false;
-        }
-        return true;
-    }
     
     @Override
     public int compareTo(Product p){
