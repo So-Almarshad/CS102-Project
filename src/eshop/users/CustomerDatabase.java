@@ -5,26 +5,29 @@
 package eshop.users;
 
 import java.util.*;
-
+import eshop.launcher.Eshop;
 /**
  *
  * @author abdul
  */
 public class CustomerDatabase {
     
-    private Map<String, Customer> customers;
+    private Eshop eshop;
+    private Map<String, Customer> customerTable;
     
-    public CustomerDatabase(Map<String, Customer> customers) {
-        this.customers = customers;
+    public CustomerDatabase(Eshop eshop, Map<String, Customer> customerTable) {
+        this.eshop = eshop;
+        this.customerTable = customerTable;
+        
     }
     
     /******GETTERS & SETTERS******/
-    public Map<String, Customer> getCustomers() {
-        return customers;
+    public Map<String, Customer> getCustomerTable() {
+        return customerTable;
     }
     
-    public void setCustomers(Map<String, Customer> customers) {
-        this.customers = customers;
+    public void setCustomerTable(Map<String, Customer> customerTable) {
+        this.customerTable = customerTable;
     }
     
     /******UTILITIES******/
@@ -32,22 +35,17 @@ public class CustomerDatabase {
     //Registers a new customer
     //If a customer with the same username exists, returns false and doesn't register the customer
     public boolean register(Customer customer) {
-        if(usernameTaken(customer.getName())){
+        String username = customer.getUsername();
+        Set<String> usernameSet = eshop.getUsernameSet();
+        if(usernameSet.contains(username)) {
             return false;
         }
-        customers.put(customer.getEmail(), customer);
+        customerTable.put(customer.getEmail(), customer);
+        usernameSet.add(username);
         return true;
     }
     
     public void remove(String username) {
-        customers.remove(username);
-    }
-    
-    private boolean usernameTaken(String username) {
-        List<Customer> list = new ArrayList<>(customers.values());
-        for(Customer customer : list) 
-            if(customer.getName().equals(username))
-                return true;
-        return false;
+        customerTable.remove(username);
     }
 }

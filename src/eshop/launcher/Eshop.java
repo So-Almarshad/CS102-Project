@@ -10,27 +10,28 @@ import eshop.products.Product;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.*;
 import java.util.Scanner;
 
 public class Eshop {
     
     private Catalog catalog;
     private CustomerDatabase customerDatabase;
-    private File catalogFile;
-    private File customerFile;
-    private File adminFile;
+    private Set<String> usernameSet;
     private Administrator admin;
+    private File catalogFile;
+    private File userFile;
     private User activeUser;
     private Menu activeMenu;
     private Scanner input;
     private boolean isRunning;
     
-    public Eshop(File adminFile, File customerFile, File catalogFile) throws Exception{
-        this.adminFile = adminFile;
-        this.customerFile = customerFile;
+    public Eshop(File userFile, File catalogFile) throws Exception{
+        this.userFile = userFile;
         this.catalogFile = catalogFile;
         loadData();
     }
@@ -42,6 +43,23 @@ public class Eshop {
         }
         isRunning = true;
         this.input = input;
+        
+        if(admin == null) {
+            activeMenu = new AdminRegistrationMenu(this);
+            while(activeMenu != null) {
+                activeMenu.display();
+                activeMenu.select(input.nextInt());
+            }
+        }
+        
+        if(customerDatabase == null) {
+            customerDatabase = new CustomerDatabase(this, new HashMap<>());
+        }
+        
+        if(catalog == null) {
+            catalog = new Catalog(new HashMap<>());
+        }
+        
         activeMenu = new MainMenu(this);
         while(activeMenu != null) {
             activeMenu.display();
@@ -49,9 +67,10 @@ public class Eshop {
         }
     }
     
-    public void close() {
+    public void close() throws Exception {
         this.input = null;
         this.activeMenu = null;
+        saveData();
         isRunning = false;
     }
     
@@ -63,6 +82,10 @@ public class Eshop {
     public CustomerDatabase getCustomerDatabase() {
         return customerDatabase;
     }
+
+    public Set<String> getUsernameSet() {
+        return usernameSet;
+    }
     
     public Catalog getCatalog() {
         return catalog;
@@ -71,7 +94,7 @@ public class Eshop {
     public User getActiveUser() {
         return activeUser;
     }
-
+    
     public Menu getActiveMenu() {
         return activeMenu;
     }
@@ -85,27 +108,26 @@ public class Eshop {
     }
     
     /******SAVE & LOAD******/
-    public void saveAdminData() throws Exception {
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(adminFile))) {
-            out.writeObject(adminFile);
-        }
-    }
-    
-    public final void loadAdminData() throws Exception {
-        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(adminFile))) {
-            admin = (Administrator)in.readObject();
-        }
-    }
-    
-    public void saveCustomerData() throws Exception {
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(customerFile))) {
+    public void saveUserData() throws Exception {
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(userFile))) {
+            out.writeObject(admin);
             out.writeObject(customerDatabase);
+            out.writeObject(usernameSet);
         }
     }
     
-    public final void loadCustomerData() throws Exception {
-        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(customerFile))) {
-            customerDatabase = (CustomerDatabase)in.readObject();
+    public final void loadUserData() throws Exception {
+        if(userFile.exists()) {
+            try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(userFile))) {
+                admin = (Administrator)in.readObject();
+                customerDatabase = (CustomerDatabase)in.readObject();
+                usernameSet = (HashSet<String>)in.readObject();
+            } catch(Exception e) {
+                throw new IOException("Error: Invalid User File");
+            }
+        }
+        else {
+            userFile.createNewFile();
         }
     }
     
@@ -116,20 +138,25 @@ public class Eshop {
     }
     
     public final void loadCatalogData() throws Exception {
-        try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(catalogFile))) {
-            catalog = (Catalog)in.readObject();
+        if(catalogFile.exists()) {
+            try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(catalogFile))) {
+                catalog = (Catalog)in.readObject();
+            } catch(Exception e) {
+                throw new IOException("Error: Invalid Catalog File");
+            }
+        }
+        else {
+            catalogFile.createNewFile();
         }
     }
     
     public void saveData() throws Exception {
-        saveAdminData();
-        saveCustomerData();
+        saveUserData();
         saveCatalogData();
     }
     
     public final void loadData() throws Exception {
-        loadAdminData();
-        loadCustomerData();
+        loadUserData();
         loadCatalogData();
     }
 }

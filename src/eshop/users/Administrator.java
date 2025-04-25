@@ -14,5 +14,4 @@ public class Administrator extends User{
     public Administrator(String username, String password, String name, int age) {
         super(username, password, name, age);
     }
-    
 }

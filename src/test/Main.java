@@ -4,14 +4,24 @@
  */
 package test;
 
-import eshop.*;
+import eshop.launcher.Eshop;
+import java.io.*;
+import java.util.*;
 
 /**
  *
  * @author abdul
  */
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+        Scanner sc = new Scanner(System.in);
         
+        File catalogFile = new File("cTest1.dat");
+        File userFile = new File("uTest.dat");
+        catalogFile.delete();
+        userFile.delete();
+        
+        Eshop eshop = new Eshop(userFile, catalogFile);
+        eshop.launch(sc);
     }
 }
