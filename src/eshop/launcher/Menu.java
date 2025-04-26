@@ -10,9 +10,13 @@ package eshop.launcher;
  */
 public abstract class Menu {
     private Eshop eshop;
+    private String header;
+    private String[] options;
     
-    public Menu(Eshop eshop) {
+    public Menu(Eshop eshop, String header, String... options) {
         this.eshop = eshop;
+        this.header = header + '\n' + "-".repeat(header.length()) + '\n';
+        this.options = options;
     }
 
     public Eshop getEshop() {
@@ -22,8 +26,30 @@ public abstract class Menu {
     public void setEshop(Eshop eshop) {
         this.eshop = eshop;
     }
+
+    public String getHeader() {
+        return header;
+    }
+
+    public void setHeader(String header) {
+        this.header = header;
+    }
+
+    public String[] getOptions() {
+        return options;
+    }
     
-    public abstract void display();
+    public void setOptions(String... options) {
+        this.options = options;
+    }
+    
+    public void display() {
+        StringBuilder optionsString = new StringBuilder();
+        for(int i = 0; i < options.length; i++) {
+            optionsString.append((i + 1) + ". " + options[i] + '\n');
+        }
+        System.out.println(header + optionsString);
+    }
 
     public abstract void select(int optionNum);
 }

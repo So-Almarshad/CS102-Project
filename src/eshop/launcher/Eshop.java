@@ -7,6 +7,7 @@ package eshop.launcher;
 import eshop.users.*;
 import eshop.products.Catalog;
 import eshop.products.Product;
+import java.io.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -16,6 +17,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.*;
 import java.util.Scanner;
+import eshop.util.Util;
 
 public class Eshop {
     
@@ -36,28 +38,46 @@ public class Eshop {
         loadData();
     }
     
-    public void launch(Scanner input) {
+    public void launch(Scanner input) throws Exception {
         if(isRunning) {
             System.out.println("This Eshop is already running");
             return; //maybe throw an exception?
         }
+        
         isRunning = true;
         this.input = input;
         
         if(admin == null) {
             activeMenu = new AdminRegistrationMenu(this);
             while(activeMenu != null) {
-                activeMenu.display();
-                activeMenu.select(input.nextInt());
+                try {
+                    System.out.println(("\n").repeat(20));
+                    activeMenu.display();
+                    
+                    System.out.print("Enter option num.: ");
+                    String inputStr = input.nextLine().trim();
+                    
+                    if(Util.isNumeric(inputStr))
+                        activeMenu.select(Integer.parseInt(inputStr));
+                    else {
+                        System.err.println("Option num. should be a positive integer");
+                        Util.pause(input);
+                    }
+                } catch(InputMismatchException e) {
+                    e.printStackTrace();
+                    input.nextLine();
+                    Util.pause(input);
+                }
             }
-        }
-        
-        if(customerDatabase == null) {
             customerDatabase = new CustomerDatabase(this, new HashMap<>());
+            usernameSet = new HashSet<>();
+            usernameSet.add(admin.getName());
+            saveUserData();
         }
         
         if(catalog == null) {
             catalog = new Catalog(new HashMap<>());
+            saveCatalogData();
         }
         
         activeMenu = new MainMenu(this);
@@ -77,6 +97,10 @@ public class Eshop {
     /******GETTERS & SETTERS******/
     public Administrator getAdmin() {
         return admin;
+    }
+    
+    public void setAdmin(Administrator admin) {
+        this.admin = admin;
     }
     
     public CustomerDatabase getCustomerDatabase() {
@@ -122,12 +146,10 @@ public class Eshop {
                 admin = (Administrator)in.readObject();
                 customerDatabase = (CustomerDatabase)in.readObject();
                 usernameSet = (HashSet<String>)in.readObject();
+                customerDatabase.setEshop(this);
             } catch(Exception e) {
                 throw new IOException("Error: Invalid User File");
             }
-        }
-        else {
-            userFile.createNewFile();
         }
     }
     
@@ -144,9 +166,6 @@ public class Eshop {
             } catch(Exception e) {
                 throw new IOException("Error: Invalid Catalog File");
             }
-        }
-        else {
-            catalogFile.createNewFile();
         }
     }
     

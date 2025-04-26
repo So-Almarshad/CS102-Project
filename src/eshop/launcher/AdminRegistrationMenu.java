@@ -5,41 +5,28 @@
 package eshop.launcher;
 import java.util.Scanner;
 import eshop.users.Administrator;
+import eshop.util.Util;
 /**
  *
  * @author abdul
  */
 public class AdminRegistrationMenu extends Menu {
     private Scanner input;
-    private Administrator admin;
     private String username = "";
     private String password = "";
     private String censored = "";
     private String name = "";
-    private String age = "";
-    private String registrationOptions;
+    private String ageStr = "";
+    private int age = -1;
     
     public AdminRegistrationMenu(Eshop eshop) {
-        super(eshop);
+        super(eshop, "REGISTER NEW ADMIN", "Username: ", "Password: ", "Name: ", "Age: ", "Confirm");
         input = eshop.getInput();
-        admin = eshop.getAdmin();
-        registrationOptions = "CREATE ADMIN ACCOUNT\n" +
-                              "1. Username:\n" +
-                              "2. Password:\n" +
-                              "3. Name:\n" +
-                              "4. Age:\n" +
-                              "5. Confirm";
-    }
-    
-    @Override
-    public void display() {
-        System.out.println(registrationOptions);
     }
     
     //TODO edit this to account for password encryption
     @Override
     public void select(int optionNum) {
-        input.nextLine();
         try {
             switch(optionNum) {
                 case 1: 
@@ -57,27 +44,55 @@ public class AdminRegistrationMenu extends Menu {
                     break;
                 case 4:
                     System.out.print("Enter age: ");
-                    age = input.nextLine();
+                    String temp = input.nextLine().trim();
+                    if(Util.isNumeric(temp)) {
+                        ageStr = temp;
+                        age = Integer.parseInt(temp);
+                    }
+                    else {
+                        System.err.println("Age should be a positive integer");
+                        Util.pause(input);
+                    }
                     break;
                 case 5:
-                    if(username.equals("") || password.equals("") || name.equals("") || age.equals(""))
-                        System.out.println("Some fields are missing");
-                    else
-                        admin = new Administrator(username, password, name, Integer.parseInt(age));
+                    if(username.equals("") || password.equals("") || name.equals("") || age == -1) {
+                        System.err.println("Some fields are missing");
+                        Util.pause(input);
+                    }
+                    else if(isValidFields()) {
+                        getEshop().setAdmin(new Administrator(username, password, name, age));
                         getEshop().setActiveMenu(null);
+                    }
+                    else {
+                        Util.pause(input);
+                    }
                     break;
-                default: System.out.println("That is not an option");
+                default: 
+                    System.err.println("That is not an option");
+                    Util.pause(input);
             }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            Util.pause(input);
         }
-        registrationOptions = "*****CREATE ADMIN ACCOUNT*****\n" +
-                              "1. Username: " + username + '\n' +
-                              "2. Password: " + censored + '\n' +
-                              "3. Name: " + name + '\n' +
-                              "4. Age: " + age + '\n' +
-                              "5. Confirm";
-        System.out.println("Press enter to continue");
-        input.nextLine();
+        setOptions("Username: " + username, "Password: " + censored, "Name: " + name, "Age: " + ageStr, "Confirm");
+    }
+    
+    //returns whether all the fields are valid, and prints which fields are invalid
+    private boolean isValidFields() {
+        boolean isValidUsername = Util.isAlphanumeric(username);
+        boolean isValidPassword = Util.authorizePassword(password);
+        boolean isValidAge = age > 15;
+        if(!isValidUsername)
+            System.err.println("Username should be alphanumerical");
+        if(!isValidPassword) {
+            System.err.println("Password should be more than six digits long, "
+                    + "contains a letter, contains a number, contains a special "
+                    + "character");
+        }
+        if(!isValidAge)
+            System.err.println("Age should be greater than 15");
+        
+        return isValidUsername && isValidPassword && isValidAge;
     }
 }

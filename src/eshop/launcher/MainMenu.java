@@ -11,19 +11,8 @@ import java.util.Scanner;
  */
 public class MainMenu extends Menu{
     
-    private final String MAIN_MENU_OPTIONS = "*****MAIN MENU*****\n" +
-                                             "1. Admin login\n" +
-                                             "2. Customer login\n" +
-                                             "3. Create new account\n" +
-                                             "4. Exit";
-    
     public MainMenu(Eshop eshop) {
-        super(eshop);
-    }
-    
-    @Override
-    public void display() {
-        System.out.println(MAIN_MENU_OPTIONS);
+        super(eshop,"MAIN MENU", "Admin login", "Customer login", "Create new account", "Exit");
     }
     
     @Override

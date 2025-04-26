@@ -6,6 +6,7 @@
 package eshop.users;
 
 import java.io.Serializable;
+import eshop.util.Util;
 
 /**
  *
@@ -21,12 +22,12 @@ public class User implements Serializable{
     private int age;
 
     public User(String username, String password, String name, int age) {
-        if (isAlphanumeric(username))
+        if (Util.isAlphanumeric(username))
             this.username = username;
         else
             throw new IllegalArgumentException("Username should be alphanumerical");
         
-        if (authorizePassword(password))
+        if (Util.authorizePassword(password))
             this.password = password;
         else
             throw new IllegalArgumentException("Password should be more than"
@@ -46,7 +47,7 @@ public class User implements Serializable{
     }
 
     public void setUsername(String username) {
-        if (isAlphanumeric(username))
+        if (Util.isAlphanumeric(username))
             this.username = username;
         else
             throw new IllegalArgumentException("Username should be alphanumerical");
@@ -57,7 +58,7 @@ public class User implements Serializable{
     }
 
     public void setPassword(String password) {
-        if (authorizePassword(password))
+        if (Util.authorizePassword(password))
             this.password = password;
         else
             throw new IllegalArgumentException("Password should be more than"
@@ -83,33 +84,4 @@ public class User implements Serializable{
             throw new IllegalArgumentException("Age should be greater than 15");
     }
     
-    /******METHODS******/
-    private static boolean isAlphanumeric(String num){
-        //Method to check if a string only contains numbers and letters
-        for (int i = 0; i < num.length(); i++) {
-            if (!(Character.isDigit(num.charAt(i))||Character.isAlphabetic(num.charAt(i)))) {
-                return false;
-            }
-        }
-        return true;
-    }
-    
-    private static boolean authorizePassword(String password){
-        //Method to check if password is 6 digits long and if it contains a number
-        // a letter and a special character
-        int numCount = 0, letterCount = 0, specialCount = 0;
-        
-        for (int i = 0; i < password.length(); i++) {
-            if (Character.isDigit(password.charAt(i)))
-                numCount++;
-            else if (Character.isAlphabetic(password.charAt(i)))
-                letterCount++;
-            else
-                specialCount++;
-        }
-        if (specialCount > 0 && letterCount > 0 && numCount > 0 && password.length() >= 6) 
-            return true;
-        else
-            return false;
-    }
 }

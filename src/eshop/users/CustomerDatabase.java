@@ -5,14 +5,15 @@
 package eshop.users;
 
 import java.util.*;
+import java.io.*;
 import eshop.launcher.Eshop;
 /**
  *
  * @author abdul
  */
-public class CustomerDatabase {
+public class CustomerDatabase implements Serializable {
     
-    private Eshop eshop;
+    private transient Eshop eshop;
     private Map<String, Customer> customerTable;
     
     public CustomerDatabase(Eshop eshop, Map<String, Customer> customerTable) {
@@ -28,6 +29,14 @@ public class CustomerDatabase {
     
     public void setCustomerTable(Map<String, Customer> customerTable) {
         this.customerTable = customerTable;
+    }
+
+    public Eshop getEshop() {
+        return eshop;
+    }
+
+    public void setEshop(Eshop eshop) {
+        this.eshop = eshop;
     }
     
     /******UTILITIES******/

@@ -16,10 +16,8 @@ public class Main {
     public static void main(String[] args) throws Exception{
         Scanner sc = new Scanner(System.in);
         
-        File catalogFile = new File("cTest1.dat");
-        File userFile = new File("uTest.dat");
-        catalogFile.delete();
-        userFile.delete();
+        File userFile = new File("User_Test.dat");
+        File catalogFile = new File("Catalog_Test.dat");
         
         Eshop eshop = new Eshop(userFile, catalogFile);
         eshop.launch(sc);
