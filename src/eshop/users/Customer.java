@@ -10,19 +10,13 @@ package eshop.users;
  */
 public class Customer extends User{
     
-    private String email;
     private Card paymentCard;
     private Address shippingAddress;
     
-    public Customer(String customerId, Card paymentCard, Address shippingAddress, String username, String password, String name, int age) {
+    public Customer(String username, String password, String name, int age, Card paymentCard, Address shippingAddress) {
         super(username, password, name, age);
-        this.email = customerId;
         this.paymentCard = paymentCard;
         this.shippingAddress = shippingAddress;
-    }
-
-    public String getEmail() {
-        return email;
     }
     
     public Card getPaymentCard() {

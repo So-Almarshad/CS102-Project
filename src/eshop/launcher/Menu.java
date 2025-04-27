@@ -3,18 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package eshop.launcher;
-
+import eshop.util.Util;
+import java.util.Scanner;
 /**
  *
  * @author abdul
  */
 public abstract class Menu {
-    private Eshop eshop;
+    protected Eshop eshop;
+    protected Scanner input;
     private String header;
     private String[] options;
     
     public Menu(Eshop eshop, String header, String... options) {
         this.eshop = eshop;
+        this.input = eshop.getInput();
         this.header = header + '\n' + "-".repeat(header.length()) + '\n';
         this.options = options;
     }
@@ -50,6 +53,6 @@ public abstract class Menu {
         }
         System.out.println(header + optionsString);
     }
-
+    
     public abstract void select(int optionNum);
 }

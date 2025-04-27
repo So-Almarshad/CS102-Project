@@ -4,37 +4,23 @@
  */
 package eshop.launcher;
 
-import java.util.Scanner;
 /**
  *
  * @author abdul
  */
-public class MainMenu extends Menu{
+public class MainMenu extends Menu {
     
     public MainMenu(Eshop eshop) {
-        super(eshop,"MAIN MENU", "Admin login", "Customer login", "Create new account", "Exit");
+        super(eshop, "MAIN MENU", "Admin login", "Customer login", "Create new account", "Exit");
     }
     
     @Override
     public void select(int optionNum) {
         switch(optionNum) {
-            case 1: 
+            case 1: eshop.setActiveMenu(new AdminLoginMenu(eshop)); break;
+            case 2: eshop.setActiveMenu(new CustomerLoginMenu(eshop)); break;
+            case 3: eshop.setActiveMenu(new CustomerRegistrationMenu(eshop)); break;
+            case 4: try { eshop.close(); } catch (Exception e) {System.err.println("Save failed");} break;
         }
-    }
-    
-    private void adminLogin() {
-        Scanner sc = this.getEshop().getInput();
-        
-        while(true) {
-            System.out.println("Enter admin username: ");
-            String username = sc.nextLine();
-        
-            System.out.println("Enter admin password");
-            String password = sc.nextLine();
-        }
-    }
-    
-    private boolean isValid(String username, String password) {
-        return false;
     }
 }

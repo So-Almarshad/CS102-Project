@@ -14,12 +14,12 @@ import java.util.*;
  */
 public class Main {
     public static void main(String[] args) throws Exception{
-        Scanner sc = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         
         File userFile = new File("User_Test.dat");
         File catalogFile = new File("Catalog_Test.dat");
         
         Eshop eshop = new Eshop(userFile, catalogFile);
-        eshop.launch(sc);
+        eshop.launch(input);
     }
 }

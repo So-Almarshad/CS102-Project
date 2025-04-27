@@ -6,8 +6,6 @@ package eshop.launcher;
 
 import eshop.users.*;
 import eshop.products.Catalog;
-import eshop.products.Product;
-import java.io.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,7 +21,6 @@ public class Eshop {
     
     private Catalog catalog;
     private CustomerDatabase customerDatabase;
-    private Set<String> usernameSet;
     private Administrator admin;
     private File catalogFile;
     private File userFile;
@@ -38,9 +35,13 @@ public class Eshop {
         loadData();
     }
     
+    //Launches the Eshop and takes a scanner as an argument so that the source
+    //of input is in the hands of the caller.
+    //Once this method is called, the Eshop will continue to run until the
+    //eshop.close() method is called.
     public void launch(Scanner input) throws Exception {
         if(isRunning) {
-            System.out.println("This Eshop is already running");
+            System.out.println("This Eshop is already running"); //maybe remove message?
             return; //maybe throw an exception?
         }
         
@@ -48,30 +49,8 @@ public class Eshop {
         this.input = input;
         
         if(admin == null) {
-            activeMenu = new AdminRegistrationMenu(this);
-            while(activeMenu != null) {
-                try {
-                    System.out.println(("\n").repeat(20));
-                    activeMenu.display();
-                    
-                    System.out.print("Enter option num.: ");
-                    String inputStr = input.nextLine().trim();
-                    
-                    if(Util.isNumeric(inputStr))
-                        activeMenu.select(Integer.parseInt(inputStr));
-                    else {
-                        System.err.println("Option num. should be a positive integer");
-                        Util.pause(input);
-                    }
-                } catch(InputMismatchException e) {
-                    e.printStackTrace();
-                    input.nextLine();
-                    Util.pause(input);
-                }
-            }
+            startMenu(new AdminRegistrationMenu(this));
             customerDatabase = new CustomerDatabase(this, new HashMap<>());
-            usernameSet = new HashSet<>();
-            usernameSet.add(admin.getName());
             saveUserData();
         }
         
@@ -80,13 +59,10 @@ public class Eshop {
             saveCatalogData();
         }
         
-        activeMenu = new MainMenu(this);
-        while(activeMenu != null) {
-            activeMenu.display();
-            activeMenu.select(input.nextInt());
-        }
+        startMenu(new MainMenu(this));
     }
     
+    //Exits the Eshop and saves all user and catalog data
     public void close() throws Exception {
         this.input = null;
         this.activeMenu = null;
@@ -106,10 +82,6 @@ public class Eshop {
     public CustomerDatabase getCustomerDatabase() {
         return customerDatabase;
     }
-
-    public Set<String> getUsernameSet() {
-        return usernameSet;
-    }
     
     public Catalog getCatalog() {
         return catalog;
@@ -117,6 +89,10 @@ public class Eshop {
     
     public User getActiveUser() {
         return activeUser;
+    }
+
+    public void setActiveUser(User activeUser) {
+        this.activeUser = activeUser;
     }
     
     public Menu getActiveMenu() {
@@ -136,7 +112,6 @@ public class Eshop {
         try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(userFile))) {
             out.writeObject(admin);
             out.writeObject(customerDatabase);
-            out.writeObject(usernameSet);
         }
     }
     
@@ -145,7 +120,6 @@ public class Eshop {
             try(ObjectInputStream in = new ObjectInputStream(new FileInputStream(userFile))) {
                 admin = (Administrator)in.readObject();
                 customerDatabase = (CustomerDatabase)in.readObject();
-                usernameSet = (HashSet<String>)in.readObject();
                 customerDatabase.setEshop(this);
             } catch(Exception e) {
                 throw new IOException("Error: Invalid User File");
@@ -177,5 +151,31 @@ public class Eshop {
     public final void loadData() throws Exception {
         loadUserData();
         loadCatalogData();
+    }
+    
+    /******HELPER METHODS******/
+    
+    private void startMenu(Menu menu) {
+        activeMenu = menu;
+            while(activeMenu != null) {
+                try {
+                    System.out.println(("\n").repeat(20));
+                    activeMenu.display();
+                    
+                    System.out.print("Enter option num.: ");
+                    String inputStr = input.nextLine().trim();
+                    
+                    if(Util.isNumeric(inputStr))
+                        activeMenu.select(Integer.parseInt(inputStr));
+                    else {
+                        System.out.println("Option num. should be a positive integer");
+                        Util.pause(input);
+                    }
+                } catch(Exception e) {
+                    e.printStackTrace();
+                    input.nextLine();
+                    Util.pause(input);
+                }
+            }
     }
 }

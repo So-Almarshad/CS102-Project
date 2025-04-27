@@ -45,16 +45,18 @@ public class CustomerDatabase implements Serializable {
     //If a customer with the same username exists, returns false and doesn't register the customer
     public boolean register(Customer customer) {
         String username = customer.getUsername();
-        Set<String> usernameSet = eshop.getUsernameSet();
-        if(usernameSet.contains(username)) {
+        if(customerTable.containsKey(username)) {
             return false;
         }
-        customerTable.put(customer.getEmail(), customer);
-        usernameSet.add(username);
+        customerTable.put(customer.getUsername(), customer);
         return true;
     }
     
     public void remove(String username) {
         customerTable.remove(username);
+    }
+    
+    public Customer find(String username) {
+        return customerTable.get(username);
     }
 }

@@ -3,14 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package eshop.launcher;
-import java.util.Scanner;
-import eshop.users.Administrator;
+
+import eshop.users.Customer;
+import eshop.users.CustomerDatabase;
+import eshop.users.Card;
+import eshop.users.Address;
 import eshop.util.Util;
+import java.util.Map;
+
 /**
  *
  * @author abdul
  */
-public class AdminRegistrationMenu extends Menu {
+public class CustomerRegistrationMenu extends Menu {
+    private CustomerDatabase customerDatabase;
     private String username = "";
     private String password = "";
     private String censored = "";
@@ -18,8 +24,9 @@ public class AdminRegistrationMenu extends Menu {
     private String ageStr = "";
     private int age = -1;
     
-    public AdminRegistrationMenu(Eshop eshop) {
-        super(eshop, "REGISTER NEW ADMIN", "Username: ", "Password: ", "Name: ", "Age: ", "Confirm");
+    public CustomerRegistrationMenu(Eshop eshop) {
+        super(eshop, "CREATE NEW ACCOUNT", "Username: ", "Password: ", "Name: ", "Age: ", "Confirm", "Back");
+        customerDatabase = eshop.getCustomerDatabase();
     }
     
     //TODO edit this to account for password encryption
@@ -58,13 +65,16 @@ public class AdminRegistrationMenu extends Menu {
                     Util.pause(input);
                 }
                 else if(isValidFields()) {
-                    eshop.setAdmin(new Administrator(username, password, name, age));
-                    eshop.setActiveMenu(null);
+                    Customer customer = new Customer(username, password, name, age, null, null);
+                    customerDatabase.register(customer);
+                    eshop.setActiveMenu(new MainMenu(eshop));
                 }
                 else {
                     Util.pause(input);
                 }
                 break;
+            case 6:
+                eshop.setActiveMenu(new MainMenu(eshop)); break;
             default: 
                 System.out.println("That is not an option");
                 Util.pause(input);
@@ -78,9 +88,14 @@ public class AdminRegistrationMenu extends Menu {
     
     //returns whether all the fields are valid, and prints which fields are invalid
     private boolean isValidFields() {
+        String adminUsername = eshop.getAdmin().getUsername();
+        Map<String, Customer> customerTable = customerDatabase.getCustomerTable();
+        boolean isUniqueUsername = !(customerTable.containsKey(username) || username.equals(adminUsername));
         boolean isValidUsername = Util.isAlphanumeric(username);
         boolean isValidPassword = Util.authorizePassword(password);
         boolean isValidAge = age > 15;
+        if(!isUniqueUsername)
+            System.out.println("Username is taken");
         if(!isValidUsername)
             System.out.println("Username should be alphanumerical");
         if(!isValidPassword) {
@@ -91,6 +106,6 @@ public class AdminRegistrationMenu extends Menu {
         if(!isValidAge)
             System.out.println("Age should be greater than 15");
         
-        return isValidUsername && isValidPassword && isValidAge;
+        return isUniqueUsername && isValidUsername && isValidPassword && isValidAge;
     }
 }
