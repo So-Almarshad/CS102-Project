@@ -18,7 +18,7 @@ public final class CatalogUtil {
     
     // Returns a sorted catalog as a LinkedHashMap using a comparator (for admin)
     public static LinkedHashMap<String, Product> getSortedProducts(Catalog catalog, Comparator<Product> c) {
-        List<Product> list = new ArrayList<>(catalog.getProducts().values());
+        List<Product> list = new ArrayList<>(catalog.getProductTable().values());
         Collections.sort(list, c);
         LinkedHashMap<String, Product> sortedCatalog = new LinkedHashMap<>();
         for(Product p : list) {
@@ -30,7 +30,7 @@ public final class CatalogUtil {
     // Returns the search results of a sorted catalog as a LinkedHashMap (for admin)
     public static LinkedHashMap<String, Product> searchSortedProducts(Catalog sortedCatalog, 
             Product key, Comparator<Product> c) {
-        List<Product> list = new ArrayList<>(sortedCatalog.getProducts().values());
+        List<Product> list = new ArrayList<>(sortedCatalog.getProductTable().values());
         LinkedHashMap<String, Product> result = new LinkedHashMap<>();
         
         for(Product product : list) {
@@ -43,7 +43,7 @@ public final class CatalogUtil {
     // Returns the search results of a catalog as a HashMap (for customer)
     public static Map<String, Product> searchProducts(Catalog catalog, 
             Product key, Comparator<Product> c) {
-        List<Product> list = new ArrayList<>(catalog.getProducts().values());
+        List<Product> list = new ArrayList<>(catalog.getProductTable().values());
         HashMap<String, Product> result = new HashMap<>();
         
         for(Product product : list) {

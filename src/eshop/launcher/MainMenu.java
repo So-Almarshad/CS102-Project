@@ -11,7 +11,7 @@ package eshop.launcher;
 public class MainMenu extends Menu {
     
     public MainMenu(Eshop eshop) {
-        super(eshop, "MAIN MENU", "Admin login", "Customer login", "Create new account", "Exit");
+        super(eshop, "MAIN MENU", "Admin login", "Customer login", "Create new account", "Save and exit");
     }
     
     @Override

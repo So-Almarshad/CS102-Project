@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package eshop.products;
-
+import eshop.util.Util;
 /**
  *
  * @author Saud
@@ -16,20 +16,22 @@ public class Book extends Product{
     private String isbn;
     private int numberOfPages;
 
-    public Book(Catalog catalog, String CATEGORY, String brand, String name, String description, double price, 
-            int quantity, String title, String author, String publisher, 
+    public Book(Catalog catalog, String CATEGORY, String productId, 
+            String brand, String name, String description, double price,
+            int quantity, 
+            String title, String author, String publisher, 
             String genre, String isbn, int numberOfPages) {
-        super(catalog, CATEGORY, brand, name, description, price, quantity);
+        super(catalog, CATEGORY, productId, brand, name, description, price, quantity);
         
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.genre = genre;
         
-        if(isbn.length() == 13)
+        if(isbn.length() == 13 && Util.isInteger(isbn))
             this.isbn = isbn;
         else 
-            throw new IllegalArgumentException("ISBN length should be 13");
+            throw new IllegalArgumentException("ISBN should be 13 digits");
         
         if (numberOfPages > 0)
             this.numberOfPages = numberOfPages;

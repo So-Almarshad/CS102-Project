@@ -157,25 +157,19 @@ public class Eshop {
     
     private void startMenu(Menu menu) {
         activeMenu = menu;
-            while(activeMenu != null) {
-                try {
-                    System.out.println(("\n").repeat(20));
-                    activeMenu.display();
-                    
-                    System.out.print("Enter option num.: ");
-                    String inputStr = input.nextLine().trim();
-                    
-                    if(Util.isNumeric(inputStr))
-                        activeMenu.select(Integer.parseInt(inputStr));
-                    else {
-                        System.out.println("Option num. should be a positive integer");
-                        Util.pause(input);
-                    }
-                } catch(Exception e) {
-                    e.printStackTrace();
-                    input.nextLine();
-                    Util.pause(input);
-                }
+        while(activeMenu != null) {
+            System.out.println(("\n").repeat(20));
+            activeMenu.display();
+
+            System.out.print("Enter option num.: ");
+            String inputStr = input.nextLine().trim();
+
+            if(Util.isInteger(inputStr))
+                activeMenu.select(Integer.parseInt(inputStr));
+            else {
+                System.out.println("Option num. should be a positive integer");
+                Util.pause(input);
             }
+        }
     }
 }

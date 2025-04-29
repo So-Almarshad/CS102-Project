@@ -21,6 +21,4 @@ public class CustomerMenu extends Menu {
                 eshop.setActiveMenu(new MainMenu(eshop));
         }
     }
-    
-    
 }

@@ -21,7 +21,7 @@ public class Address {
         this.streetName = streetName;
         this.buildingNumber = buildingNumber;
         
-        if (Util.isNumeric(postCode))
+        if (Util.isInteger(postCode))
             this.postCode = postCode;
         else throw new IllegalArgumentException("Post Code should be numeric");
     }
@@ -48,7 +48,7 @@ public class Address {
     }
 
     public void setPostCode(String postCode) {
-        if (Util.isNumeric(postCode))
+        if (Util.isInteger(postCode))
             this.postCode = postCode;
         else throw new IllegalArgumentException("Post Code should be numeric");
     }

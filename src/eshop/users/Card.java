@@ -24,7 +24,7 @@ public class Card implements Serializable{
         
         if(cardNumber.length() != 16)
             throw new IllegalArgumentException("Card number should be 16-digit");
-        if(!Util.isNumeric(cardNumber))
+        if(!Util.isInteger(cardNumber))
             throw new IllegalArgumentException("Card number should only contain integer values 0-9");
         
         this.cardNumber = cardNumber;
@@ -32,7 +32,7 @@ public class Card implements Serializable{
         
         if(ccvNumber.length() != 3)
             throw new IllegalArgumentException("CCV number should be 3-digit");
-        if(!Util.isNumeric(ccvNumber))
+        if(!Util.isInteger(ccvNumber))
             throw new IllegalArgumentException("CCV number should only contain integer values 0-9");
         
         this.ccvNumber = ccvNumber;

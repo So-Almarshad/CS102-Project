@@ -50,7 +50,7 @@ public class CustomerRegistrationMenu extends Menu {
             case 4:
                 System.out.print("Enter age: ");
                 String temp = input.nextLine().trim();
-                if(Util.isNumeric(temp)) {
+                if(Util.isInteger(temp)) {
                     ageStr = temp;
                     age = Integer.parseInt(temp);
                 }

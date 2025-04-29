@@ -9,14 +9,14 @@ package eshop.products;
  * @author Saud
  */
 public class Computer extends Product {
-    private int memorySize;
-    private int processorSpeed;
-    private int hardDiskSize;
+    private long memorySize;
+    private long processorSpeed;
+    private long hardDiskSize;
 
-    public Computer(Catalog catalog, int memorySize, int processorSpeed, int hardDiskSize, 
-            String productId, String brand, String name, String description, 
-            double price, int quantity) {
-        super(catalog, "Computer", brand, name, description, price, quantity);
+    public Computer(Catalog catalog, String productId, String brand, String name, 
+            String description, double price, int quantity, long memorySize, 
+            long processorSpeed, long hardDiskSize) {
+        super(catalog, productId, COMPUTER, brand, name, description, price, quantity);
         if (memorySize > 0)
             this.memorySize = memorySize;
         else throw new IllegalArgumentException("Memory Size should be strictly positive");
@@ -32,31 +32,31 @@ public class Computer extends Product {
     
     
     /******GETTERS & SETTERS******/
-    public int getMemorySize() {
+    public long getMemorySize() {
         return memorySize;
     }
 
-    public void setMemorySize(int memorySize) {
+    public void setMemorySize(long memorySize) {
         if (memorySize > 0)
             this.memorySize = memorySize;
         else throw new IllegalArgumentException("Memory Size should be strictly positive");
     }
 
-    public int getProcessorSpeed() {
+    public long getProcessorSpeed() {
         return processorSpeed;
     }
 
-    public void setProcessorSpeed(int processorSpeed) {
+    public void setProcessorSpeed(long processorSpeed) {
         if (processorSpeed > 0)
             this.processorSpeed = processorSpeed;
         else throw new IllegalArgumentException("Processor speed should be stictly positive");
     }
 
-    public int getHardDiskSize() {
+    public long getHardDiskSize() {
         return hardDiskSize;
     }
 
-    public void setHardDiskSize(int hardDiskSize) {
+    public void setHardDiskSize(long hardDiskSize) {
        if (hardDiskSize>0)
            this.hardDiskSize = hardDiskSize;
         else throw new IllegalArgumentException("Hard disk Size should be strictly positive");

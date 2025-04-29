@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package eshop.util;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Scanner;
 /**
  *
@@ -14,19 +16,57 @@ public final class Util {
     
     private Util() {}
     
-    //Method to check if a string only contains numbers
-    public static boolean isNumeric(String num) {
-        int length = num.length();
+    //Checks if a string only contains numbers and is in the integer range
+    public static boolean isInteger(String num) {
         if(num.isEmpty()) return false;
+        int length = num.length();
         for(int i = 0; i < length; i++) {
             if(!Character.isDigit(num.charAt(i)))
                 return false;
         }
-        return true;
+        String maxInt = ((Integer)Integer.MAX_VALUE).toString();
+        BigInteger bigInteger = new BigInteger(num);
+        return bigInteger.compareTo(new BigInteger(maxInt)) == -1
+                && !bigInteger.equals("0");
     }
     
+    //Checks if a string only contains numbers and is in the long range
+    public static boolean isLong(String num) {
+        if(num.isEmpty()) return false;
+        int length = num.length();
+        for(int i = 0; i < length; i++) {
+            if(!Character.isDigit(num.charAt(i)))
+                return false;
+        }
+        String maxInt = ((Long)Long.MAX_VALUE).toString();
+        BigInteger bigInteger = new BigInteger(num);
+        return bigInteger.compareTo(new BigInteger(maxInt)) == -1
+                && !bigInteger.equals("0");
+    }
+    
+    public static boolean isDecimal(String num) {
+        if(num.isEmpty()) return false;
+        int length = num.length();
+        boolean includesDecimalPoint = false;
+        for(int i = 0; i < length; i++) {
+            char c = num.charAt(i);
+            if(c == '.' && !includesDecimalPoint) {
+                includesDecimalPoint = true;
+                continue;
+            }
+            if(!Character.isDigit(c))
+                return false;
+        }
+        if(num.charAt(0) == '.' || num.charAt(length - 1) == '.')
+            return false;
+        String maxDec = ((Double)Double.MAX_VALUE).toString();
+        BigDecimal bigDecimal = new BigDecimal(num);
+        return bigDecimal.compareTo(new BigDecimal(maxDec)) == -1
+                && !bigDecimal.equals("0");
+    }
+    
+    //Method to check if a string only contains numbers and letters
     public static boolean isAlphanumeric(String num){
-        //Method to check if a string only contains numbers and letters
         for (int i = 0; i < num.length(); i++) {
             if (!(Character.isDigit(num.charAt(i))||Character.isAlphabetic(num.charAt(i)))) {
                 return false;

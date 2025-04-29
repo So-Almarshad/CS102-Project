@@ -5,7 +5,8 @@
 package eshop.products;
 
 import java.io.Serializable;
-
+import java.util.*;
+import eshop.util.Util;
 /**
  *
  * @author Saud
@@ -19,9 +20,19 @@ public class Product implements Comparable<Product>, Serializable{
     private String description;
     private double price;
     private int quantity;
+    private Set<String> productDetails;
     
-    public Product(Catalog catalog, String CATAGORY, String brand, String name, String description, double price, int quantity) {
+    public final static String CLOTH = "cloth";
+    public final static String COMPUTER = "computer";
+    public final static String PAPER_BOOK = "paper book";
+    public final static String EBOOK = "e-book";
+    
+    public Product(Catalog catalog, String productId, String CATAGORY, String brand, String name, String description, double price, int quantity) {
         this.catalog = catalog;
+        
+        if(productId.length() == 10 && Util.isInteger(productId))
+            this.productId = productId;
+        else throw new IllegalArgumentException("Product ID should be a unique 10 digit number");
         
         this.CATEGORY = CATAGORY;
         
@@ -31,13 +42,13 @@ public class Product implements Comparable<Product>, Serializable{
         
         this.description = description;
         
-        if (price>0)
+        if(price > 0)
             this.price = price;
         else throw new IllegalArgumentException("Price should be strictly positive");
         
-        if (quantity>=0)
+        if(quantity > 0)
             this.quantity = quantity;
-        else throw new IllegalArgumentException("quantity should be positive");
+        else throw new IllegalArgumentException("Quantity should be positive");
     }
 
     /******GETTERS & SETTERS******/
