@@ -4,6 +4,7 @@
  */
 package eshop.launcher;
 
+import eshop.util.Util;
 /**
  *
  * @author abdul
@@ -20,7 +21,16 @@ public class MainMenu extends Menu {
             case 1: eshop.setActiveMenu(new AdminLoginMenu(eshop)); break;
             case 2: eshop.setActiveMenu(new CustomerLoginMenu(eshop)); break;
             case 3: eshop.setActiveMenu(new CustomerRegistrationMenu(eshop)); break;
-            case 4: try { eshop.close(); } catch (Exception e) {System.err.println("Save failed");} break;
+            case 4: 
+                try{ 
+                    eshop.close();
+                    System.out.println("Progress saved");
+                } catch (Exception e) 
+                {System.err.println("Save failed");} 
+                break;
+            default:
+                System.out.println("That is not an option");
+                Util.pause(input);
         }
     }
 }

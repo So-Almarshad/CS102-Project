@@ -59,9 +59,7 @@ public class Eshop {
             saveCatalogData();
         }
         
-//        startMenu(new MainMenu(this));
-        setActiveUser(admin);
-        startMenu(new AdminProductMenu(this));
+        startMenu(new MainMenu(this));
     }
     
     //Exits the Eshop and saves all user and catalog data

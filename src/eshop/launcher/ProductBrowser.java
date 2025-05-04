@@ -182,7 +182,68 @@ public class ProductBrowser extends Menu{
     }
 //    setOptions("Filter: " + filterString(), "Search", "Reset view", "Sort view\n", "Select product", "Add product\n", "Select page", "Next page", "Previous page", "Back");
     private void selectCustomerOptions(int optionNum) {
-        
+        switch(optionNum) {
+            case 1: 
+                selectSearchCriteria();
+                break;
+            case 2:
+                System.out.print("Enter search string: ");
+                String searchStr = input.nextLine().trim();
+                productList = catalog.search(filter, searchStr);
+                pageNum = 1;
+                break;
+            case 3:
+                productList = catalog.getList();
+                break;
+            case 4:
+                System.out.print("Enter product ID or listing num.: ");
+                String selection = input.nextLine().trim();
+                if(!Util.isLong(selection)) {
+                    System.out.println("Selection num. must be a positive integer");
+                    Util.pause(input);
+                    break;
+                }
+                long selectionNum = Long.parseLong(selection);
+                if(selection.length() == 10 && catalog.contains(selection)) {
+                    eshop.setActiveMenu(new ProductViewer(eshop, catalog.get(selection), this));
+                }
+                else if(selectionNum <= productList.size()){
+                    eshop.setActiveMenu(new ProductViewer(eshop, productList.get((int)selectionNum - 1), this));
+                }
+                else {
+                    System.out.println("Product not found");
+                    Util.pause(input);
+                }
+                break;
+            case 5: //view basket
+                break;
+            case 6:
+                System.out.print("Enter page num.: ");
+                String temp = input.nextLine().trim();
+                if(Util.isInteger(temp)) {
+                    int pageNumTemp = Integer.parseInt(temp);
+                    pageNum = pageNumTemp < lastPage ? pageNumTemp : lastPage;
+                }
+                else {
+                    System.out.println("Page num. should be a positive integer");
+                    Util.pause(input);
+                }
+                break;
+            case 7:
+                if(pageNum > 1)
+                    pageNum--;
+                break;
+            case 8:
+                if(pageNum < lastPage)
+                    pageNum++;
+                break;
+            case 9:
+                eshop.setActiveMenu(new MainMenu(eshop));
+                break;
+            default:
+                System.out.println("That is not an option");
+                Util.pause(input);
+        }
     }
     
     private void selectSearchCriteria() {
@@ -274,7 +335,7 @@ public class ProductBrowser extends Menu{
                     productList.sort(descending ? Comparators.BRAND_COMPARATOR.reversed() : Comparators.BRAND_COMPARATOR);
                     break;
                 case 4:
-                    productList.sort(descending ? Comparators.NAME_COMPARATOR.reversed() : Comparators.NAME_COMPARATOR);
+                    productList.sort(descending ? Comparators.PRODUCT_NAME_COMPARATOR.reversed() : Comparators.PRODUCT_NAME_COMPARATOR);
                     break;
                 case 5:
                     productList.sort(descending ? Comparators.DESCRIPTION_COMPARATOR.reversed() : Comparators.DESCRIPTION_COMPARATOR);
@@ -310,7 +371,7 @@ public class ProductBrowser extends Menu{
         if(adminAccess) 
             setOptions("Filter: " + filterString(), "Search", "Sort view", "Reset view\n", "Select product", "Add product\n", "Select page", "Previous page", "Next page", "Back");
         else
-            setOptions("Filter: " + filterString(), "Search", "Reset view", "Select product", "Add to cart", "select page", "Previous page", "Next page", "Back");
+            setOptions("Filter: " + filterString(), "Search", "Reset view\n", "Select product", "View basket\n", "select page", "Previous page", "Next page", "Logout");
         if(!productList.isEmpty())
             lastPage = (int)Math.ceil(productList.size() / 10.0);
         else

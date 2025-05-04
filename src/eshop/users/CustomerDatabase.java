@@ -30,11 +30,11 @@ public class CustomerDatabase implements Serializable {
     public void setCustomerTable(Map<String, Customer> customerTable) {
         this.customerTable = customerTable;
     }
-
+    
     public Eshop getEshop() {
         return eshop;
     }
-
+    
     public void setEshop(Eshop eshop) {
         this.eshop = eshop;
     }
@@ -58,5 +58,9 @@ public class CustomerDatabase implements Serializable {
     
     public Customer find(String username) {
         return customerTable.get(username);
+    }
+    
+    public List<Customer> getList() {
+        return new ArrayList<>(customerTable.values());
     }
 }

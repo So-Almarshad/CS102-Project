@@ -5,6 +5,7 @@
 package eshop.util;
 
 import eshop.products.*;
+import eshop.users.Customer;
 import java.util.Comparator;
 /**
  *
@@ -12,10 +13,11 @@ import java.util.Comparator;
  */
 public class Comparators {
     
+    //Product comparators
     public static final Comparator<Product> CATEGORY_COMPARATOR = (a, b) -> a.getCategory().compareTo(b.getCategory());
     public static final Comparator<Product> ID_COMPARATOR = (a, b) -> a.getProductId().compareTo(b.getProductId());
     public static final Comparator<Product> BRAND_COMPARATOR = (a, b) -> a.getBrand().compareTo(b.getBrand());
-    public static final Comparator<Product> NAME_COMPARATOR = (a, b) -> a.getName().compareTo(b.getName());
+    public static final Comparator<Product> PRODUCT_NAME_COMPARATOR = (a, b) -> a.getName().compareTo(b.getName());
     public static final Comparator<Product> DESCRIPTION_COMPARATOR = (a, b) -> a.getDescription().compareTo(b.getDescription());
     public static final Comparator<Product> PRICE_COMPARATOR = (a, b) -> ((Double)a.getPrice()).compareTo(b.getPrice());
     public static final Comparator<Product> ASCENDING_MEMORY_SIZE_COMPARATOR = (a, b) -> {
@@ -108,6 +110,12 @@ public class Comparators {
         Book d = (Book)b;
         return d.getAuthor().compareTo(c.getAuthor());
     };
+    
+    //Customer comparators
+    public static final Comparator<Customer> USERNAME_COMPARATOR = (a, b) -> a.getUsername().compareTo(b.getUsername());
+    public static final Comparator<Customer> CUSTOMER_NAME_COMPARATOR = (a, b) -> a.getName().compareTo(b.getName());
+    public static final Comparator<Customer> AGE_COMPARATOR = (a, b) -> ((Integer)a.getAge()).compareTo(b.getAge());
+    
     private Comparators(){}
     
 }

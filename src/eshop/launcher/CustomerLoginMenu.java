@@ -39,7 +39,7 @@ public class CustomerLoginMenu extends Menu {
                 if(isValidCredentials()) {
                     eshop.setActiveUser(customerDatabase.find(username));
                     System.out.println("Login successful");
-                    eshop.setActiveMenu(new CustomerMenu(eshop));
+                    eshop.setActiveMenu(new ProductBrowser(eshop));
                 }
                 else {
                     System.out.println("Incorrect username or password");

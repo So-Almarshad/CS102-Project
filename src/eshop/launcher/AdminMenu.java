@@ -17,7 +17,7 @@ public class AdminMenu extends Menu {
     public void select(int optionNum) {
         switch(optionNum) {
             case 1: eshop.setActiveMenu(new AdminProductMenu(eshop)); break;
-            case 2: eshop.setActiveMenu(new AdminCustomerMenu(eshop)); break;
+            case 2: eshop.setActiveMenu(new CustomerBrowser(eshop)); break;
             case 3: 
                 eshop.setActiveUser(null);
                 eshop.setActiveMenu(new MainMenu(eshop));

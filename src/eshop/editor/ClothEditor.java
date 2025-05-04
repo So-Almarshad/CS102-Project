@@ -18,7 +18,7 @@ public final class ClothEditor extends ProductEditor {
         extraOptions = new String[CLOTH_OPTION_COUNT];
         updateExtraOptions();
     }
-
+    
     @Override
     protected void selectTypeSpecificOptions(int optionNum) {
         switch(optionNum) {
@@ -77,7 +77,7 @@ public final class ClothEditor extends ProductEditor {
         product = cloth;
         catalog.update(cloth.getProductId(), cloth);
     }
-
+    
     @Override
     protected void updateExtraOptions() {
         setExtraOptions("Size: " + spec.getClothSizeStr(), 

@@ -87,7 +87,16 @@ public class ProductViewer extends Menu {
     }
     
     private void selectCustomerOptions(int optionNum) {
-        
+        switch(optionNum) {
+            case 1:
+                break;
+            case 2:
+                eshop.setActiveMenu(returnMenu);
+                break;
+            default:
+                System.out.println("That is not an option");
+                Util.pause(input);
+        }
     }
     
     //Selects which product editor to use when updating a product, based on the
