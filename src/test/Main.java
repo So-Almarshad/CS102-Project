@@ -17,7 +17,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
         
         File userFile = new File("User_Test.dat");
-        File catalogFile = new File("Catalog_Test.dat");
+        File catalogFile = new File("ClothTest.dat");
         
         Eshop eshop = new Eshop(userFile, catalogFile);
         eshop.launch(input);

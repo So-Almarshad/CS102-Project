@@ -33,7 +33,7 @@ public class ProductSpec {
     private String memorySizeStr = "";
     private long memorySize = -1;
     private String processorSpeedStr = "";
-    private long processorSpeed = -1;
+    private double processorSpeed = -1;
     private String hardDiskSizeStr = "";
     private long hardDiskSize = -1;
     
@@ -69,7 +69,7 @@ public class ProductSpec {
             memorySize = computer.getMemorySize();
             memorySizeStr = ((Long)memorySize).toString();
             processorSpeed = computer.getProcessorSpeed();
-            processorSpeedStr = ((Long)processorSpeed).toString();
+            processorSpeedStr = ((Double)processorSpeed).toString();
             hardDiskSize = computer.getHardDiskSize();
             hardDiskSizeStr = ((Long)hardDiskSize).toString();
         }
@@ -100,7 +100,7 @@ public class ProductSpec {
         memorySize = computer.getMemorySize();
         memorySizeStr = ((Long)memorySize).toString();
         processorSpeed = computer.getProcessorSpeed();
-        processorSpeedStr = ((Long)processorSpeed).toString();
+        processorSpeedStr = ((Double)processorSpeed).toString();
         hardDiskSize = computer.getHardDiskSize();
         hardDiskSizeStr = ((Long)hardDiskSize).toString();
         
@@ -271,11 +271,11 @@ public class ProductSpec {
         this.processorSpeedStr = processorSpeedStr;
     }
 
-    public long getProcessorSpeed() {
+    public double getProcessorSpeed() {
         return processorSpeed;
     }
 
-    public void setProcessorSpeed(long processorSpeed) {
+    public void setProcessorSpeed(double processorSpeed) {
         this.processorSpeed = processorSpeed;
     }
 

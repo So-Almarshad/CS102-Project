@@ -59,7 +59,9 @@ public class Eshop {
             saveCatalogData();
         }
         
-        startMenu(new MainMenu(this));
+//        startMenu(new MainMenu(this));
+        setActiveUser(admin);
+        startMenu(new AdminProductMenu(this));
     }
     
     //Exits the Eshop and saves all user and catalog data
@@ -158,7 +160,7 @@ public class Eshop {
     private void startMenu(Menu menu) {
         activeMenu = menu;
         while(activeMenu != null) {
-            System.out.println(("\n").repeat(20));
+            System.out.println(("\n").repeat(60));
             activeMenu.display();
 
             System.out.print("Enter option num.: ");

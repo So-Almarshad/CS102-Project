@@ -7,6 +7,8 @@ package eshop.editor;
 import eshop.launcher.AdminProductMenu;
 import eshop.launcher.Eshop;
 import eshop.launcher.Menu;
+import eshop.launcher.ProductBrowser;
+import eshop.launcher.ProductViewer;
 import eshop.util.Util;
 import eshop.products.*;
 /**
@@ -20,7 +22,7 @@ public class ProductEditor extends Menu {
                                           + "3. Paper book\n"
                                           + "4. E-book\n"
                                           + "5. None\n"
-                                          + "6. Back";
+                                          + "6. Back\n";
     
     protected final int GENERAL_OPTION_COUNT = 6;
     protected final int STATIC_OPTION_COUNT = 3;
@@ -29,25 +31,27 @@ public class ProductEditor extends Menu {
     protected final int PAPER_BOOK_OPTION_COUNT = 8;
     protected final int EBOOK_OPTION_COUNT = 7;
     
+    protected Product product;
     protected String[] extraOptions;
     protected ProductSpec spec;
     protected Catalog catalog;
+    protected Menu returnMenu;
     protected boolean updating;
     
     //Constructer for a completely new product editor to add products
-    public ProductEditor(Eshop eshop) {
-        this(eshop, new ProductSpec());
+    public ProductEditor(Eshop eshop, Menu returnMenu) {
+        this(eshop, new ProductSpec(), returnMenu);
     }
     
     //Constructer for a product editor to add products, where product
     //specifications have already been defined
-    public ProductEditor(Eshop eshop, ProductSpec spec) {
-        this(eshop, spec, false);
+    public ProductEditor(Eshop eshop, ProductSpec spec, Menu returnMenu) {
+        this(eshop, spec, returnMenu, false);
     }
     
     //Constructor for a product editor that specifies whether it is updating an 
-    //existing product or adding a new one
-    public ProductEditor(Eshop eshop, ProductSpec spec, boolean updating) {
+    //existing product or adding a new one, and that stores the menu to return to when going back
+    public ProductEditor(Eshop eshop, ProductSpec spec, Menu returnMenu, boolean updating) {
         super(eshop, 
                 (updating ? "UPDATE PRODUCT: " + spec.getProductId() : "ADD PRODUCT"), 
                 "Product Type: ", "Brand: ", "Name: ", "Description: ", "Price: ", 
@@ -56,6 +60,7 @@ public class ProductEditor extends Menu {
                 "Back");
         this.spec = spec;
         this.updating = updating;
+        this.returnMenu = returnMenu;
         catalog = eshop.getCatalog();
         extraOptions = new String[0];
         updateOptions();
@@ -96,10 +101,6 @@ public class ProductEditor extends Menu {
     protected void selectGeneralOptions(int optionNum) {
         switch(optionNum) {
             case 1:
-                System.out.println();
-                System.out.println(CATEGORY_OPTIONS);
-                System.out.println();
-                System.out.print("Select category: ");
                 selectCategory();
                 break;
             case 2:
@@ -149,26 +150,36 @@ public class ProductEditor extends Menu {
                     Util.pause(input);
                 }
                 break;
-            case 4: 
+            case 4:
                 if(hasMissingFields()) {
                     System.out.println("Some fields are missing"); 
                     Util.pause(input); 
                 }
                 else if(updating) {
                     updateProduct();
-                    System.out.println("Product successfully updated");
-                    Util.pause(input);
+                    
+                    if(returnMenu instanceof ProductViewer productViewer) {
+                        productViewer.setProduct(product);
+                        eshop.setActiveMenu(returnMenu);
+                    }
+                    else {
+                        System.out.println("Product successfully updated");
+                        Util.pause(input);
+                        
+                    }
                 }
                 else {
-                    spec.setProductId(generateId());
                     addProduct();
                     System.out.println("Product successfully added: " + spec.getProductId());
-                    eshop.setActiveMenu(new ProductEditor(eshop));
+                    eshop.setActiveMenu(new ProductEditor(eshop, returnMenu));
                     Util.pause(input);
                 }
                 break;
-            case 5: 
-                eshop.setActiveMenu(new AdminProductMenu(eshop)); 
+            case 5:
+                try {
+                    eshop.saveCatalogData();
+                } catch(Exception e) {}
+                eshop.setActiveMenu(returnMenu); 
                 break;
             default:
                 selectTypeSpecificOptions(optionNum - 3);
@@ -188,6 +199,8 @@ public class ProductEditor extends Menu {
         boolean stillChoosing = true;
         while(stillChoosing) {
             stillChoosing = false;
+            System.out.println(CATEGORY_OPTIONS);
+            System.out.print("Select category: ");
             String inputStr = input.nextLine().trim();
             
             if(!Util.isInteger(inputStr)) {
@@ -200,24 +213,24 @@ public class ProductEditor extends Menu {
             switch(Integer.parseInt(inputStr)) {
                 case 1: 
                     spec.setCategory(Product.CLOTH);
-                    eshop.setActiveMenu(new ClothEditor(eshop, spec, updating));
+                    eshop.setActiveMenu(new ClothEditor(eshop, spec, returnMenu, updating));
                     break;
                 case 2: 
                     spec.setCategory(Product.COMPUTER);
-                    eshop.setActiveMenu(new ComputerEditor(eshop, spec, updating));
+                    eshop.setActiveMenu(new ComputerEditor(eshop, spec, returnMenu, updating));
                     break;
                 case 3: 
                     spec.setCategory(Product.PAPER_BOOK);
-                    eshop.setActiveMenu(new PaperBookEditor(eshop, spec, updating));
+                    eshop.setActiveMenu(new PaperBookEditor(eshop, spec, returnMenu, updating));
                     break;
                 case 4: 
                     spec.setCategory(Product.EBOOK); 
-                    eshop.setActiveMenu(new PaperBookEditor(eshop, spec, updating));
+                    eshop.setActiveMenu(new PaperBookEditor(eshop, spec, returnMenu, updating));
                     break;
                 case 5: 
                     if(!(spec.getCategory().equals(""))) {
                         spec.setCategory("");
-                        eshop.setActiveMenu(new ProductEditor(eshop, spec, updating));
+                        eshop.setActiveMenu(new ProductEditor(eshop, spec, returnMenu, updating));
                     }
                     break;
                 case 6: 
@@ -270,15 +283,6 @@ public class ProductEditor extends Menu {
     
     protected void setExtraOptions(String... extraOptions) {
         this.extraOptions = extraOptions;
-    }
-    
-    private String generateId() {
-        String id = "";
-        do {
-            long idNum = (long)(1000000000L + Math.random() * 9000000000L);
-            id = ((Long)idNum).toString();
-        } while(catalog.contains(id));
-        return id;
     }
     
     public ProductSpec getSpec() {

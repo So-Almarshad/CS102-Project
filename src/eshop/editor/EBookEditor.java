@@ -4,8 +4,8 @@
  */
 package eshop.editor;
 
-import eshop.launcher.AdminProductMenu;
 import eshop.launcher.Eshop;
+import eshop.launcher.Menu;
 import eshop.products.EBook;
 import eshop.util.Util;
 
@@ -14,9 +14,10 @@ import eshop.util.Util;
  * @author abdul
  */
 public class EBookEditor extends ProductEditor {
-    public EBookEditor(Eshop eshop, ProductSpec spec, boolean updating) {
-        super(eshop, spec, updating);
+    public EBookEditor(Eshop eshop, ProductSpec spec, Menu returnMenu, boolean updating) {
+        super(eshop, spec, returnMenu, updating);
         extraOptions = new String[EBOOK_OPTION_COUNT];
+        updateExtraOptions();
     }
 
     @Override
@@ -41,8 +42,8 @@ public class EBookEditor extends ProductEditor {
             case 5:
                 System.out.print("Enter ISBN: ");
                 String tempIsbn = input.nextLine().trim();
-                if(tempIsbn.length() == 13 && Util.isInteger(tempIsbn)) {
-                    spec.setGenre(input.nextLine());
+                if(tempIsbn.length() == 13 && Util.isLong(tempIsbn)) {
+                    spec.setIsbn(tempIsbn);
                 }
                 else {
                     System.out.println("ISBN should be 13 digits");
@@ -66,7 +67,7 @@ public class EBookEditor extends ProductEditor {
                 String tempSize = input.nextLine().trim();
                 if(Util.isLong(tempSize)) {
                     spec.setEbookSizeStr(tempSize);
-                    spec.setEbookSize(Integer.parseInt(tempSize));
+                    spec.setEbookSize(Long.parseLong(tempSize));
                 }
                 else {
                     System.out.println("Size should be a positive integer");
@@ -82,7 +83,7 @@ public class EBookEditor extends ProductEditor {
     
     @Override
     protected void addProduct() {
-        EBook eBook = new EBook(catalog, spec.getProductId(), 
+        EBook eBook = new EBook(catalog, 
                             spec.getBrand(), spec.getName(), spec.getDescription(), 
                             spec.getPrice(), spec.getQuantity(), spec.getTitle(), 
                             spec.getAuthor(), spec.getPublisher(), 
@@ -93,12 +94,14 @@ public class EBookEditor extends ProductEditor {
     
     @Override
     protected void updateProduct() {
-        EBook eBook = new EBook(catalog, spec.getProductId(), 
+        EBook eBook = new EBook(catalog, 
                             spec.getBrand(), spec.getName(), spec.getDescription(), 
                             spec.getPrice(), spec.getQuantity(), spec.getTitle(), 
                             spec.getAuthor(), spec.getPublisher(), 
                             spec.getGenre(), spec.getIsbn(), spec.getNumberOfPages(), 
                             spec.getEbookSize());
+        eBook.setProductId(spec.getProductId());
+        product = eBook;
         catalog.update(eBook.getProductId(), eBook);
     }
 

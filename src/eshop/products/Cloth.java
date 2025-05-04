@@ -4,6 +4,8 @@
  */
 package eshop.products;
 
+import java.util.Objects;
+
 /**
  *
  * @author Saud
@@ -13,10 +15,10 @@ public class Cloth extends Product{
     private String color;
     private String type;
     
-    public Cloth(Catalog catalog, String productId, String brand, String name, 
+    public Cloth(Catalog catalog, String brand, String name, 
             String description, double price, int quantity, int size, 
             String color, String type) {
-        super(catalog, productId, CLOTH, brand, name, description, price, quantity);
+        super(catalog, CLOTH, brand, name, description, price, quantity);
         if (size > 0) 
             this.size = size;
         else 
@@ -60,4 +62,34 @@ public class Cloth extends Product{
         else 
            throw new IllegalArgumentException("Type should be \"Men\",\"Women\",\"Children\"");
     }
+
+    @Override
+    protected String getMiddleString() {
+        return "Size: " + size + '\n'
+             + "Color: " + color + '\n'
+             + "Type: " + type + '\n';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Cloth other = (Cloth) obj;
+        if (this.size != other.size) {
+            return false;
+        }
+        if (!Objects.equals(this.color, other.color)) {
+            return false;
+        }
+        return super.equals(obj) && Objects.equals(this.type, other.type);
+    }
+    
+    
 }

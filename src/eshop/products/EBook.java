@@ -11,10 +11,10 @@ package eshop.products;
 public class EBook extends Book{
     private long size;
 
-    public EBook(Catalog catalog, String productId, String brand, String name, String description, 
+    public EBook(Catalog catalog, String brand, String name, String description, 
             double price, int quantity, String title, String author, String publisher, 
             String genre, String isbn, int numberOfPages, long size) {
-        super(catalog, productId, EBOOK, brand, name, description, price, quantity, 
+        super(catalog, EBOOK, brand, name, description, price, quantity, 
                 title, author, publisher, genre, isbn, numberOfPages);
         if(size > 0)
             this.size = size;
@@ -32,6 +32,27 @@ public class EBook extends Book{
             this.size = size;
         else
             throw new IllegalArgumentException("Size should be strictly positive");
+    }
+
+    @Override
+    protected String getMiddleString() {
+        return super.getMiddleString()
+             + "Size: " + size + '\n';
+    }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EBook other = (EBook) obj;
+        return super.equals(obj) && this.size == other.size;
     }
    
 }

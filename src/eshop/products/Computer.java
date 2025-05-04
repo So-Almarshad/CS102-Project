@@ -10,13 +10,13 @@ package eshop.products;
  */
 public class Computer extends Product {
     private long memorySize;
-    private long processorSpeed;
+    private double processorSpeed;
     private long hardDiskSize;
 
-    public Computer(Catalog catalog, String productId, String brand, String name, 
+    public Computer(Catalog catalog, String brand, String name, 
             String description, double price, int quantity, long memorySize, 
-            long processorSpeed, long hardDiskSize) {
-        super(catalog, productId, COMPUTER, brand, name, description, price, quantity);
+            double processorSpeed, long hardDiskSize) {
+        super(catalog, COMPUTER, brand, name, description, price, quantity);
         if (memorySize > 0)
             this.memorySize = memorySize;
         else throw new IllegalArgumentException("Memory Size should be strictly positive");
@@ -42,11 +42,11 @@ public class Computer extends Product {
         else throw new IllegalArgumentException("Memory Size should be strictly positive");
     }
 
-    public long getProcessorSpeed() {
+    public double getProcessorSpeed() {
         return processorSpeed;
     }
 
-    public void setProcessorSpeed(long processorSpeed) {
+    public void setProcessorSpeed(double processorSpeed) {
         if (processorSpeed > 0)
             this.processorSpeed = processorSpeed;
         else throw new IllegalArgumentException("Processor speed should be stictly positive");
@@ -63,11 +63,34 @@ public class Computer extends Product {
     }
     
     /******METHODS******/
+    
     @Override
-    public int compareTo(Product p){
-        //compare two computers by memorySize
-        if (p == null) throw new IllegalArgumentException("Cannot compare null");
-        Computer c = (Computer)p;
-        return (int)(this.getMemorySize()-c.getMemorySize())*10000;
+    protected String getMiddleString() {
+        return "Memory size: " + memorySize + '\n'
+             + "Processor speed: " + processorSpeed + '\n'
+             + "Hard disk size: " + hardDiskSize + '\n';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Computer other = (Computer) obj;
+        if (this.memorySize != other.memorySize) {
+            return false;
+        }
+        if (this.processorSpeed != other.processorSpeed) {
+            return false;
+        }
+        return super.equals(obj) && this.hardDiskSize == other.hardDiskSize;
+    }
+    
+    
 }

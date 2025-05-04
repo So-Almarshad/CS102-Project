@@ -12,14 +12,18 @@ import java.util.Scanner;
 public abstract class Menu {
     protected Eshop eshop;
     protected Scanner input;
-    private String header;
-    private String[] options;
+    protected String header;
+    protected String[] options;
     
     public Menu(Eshop eshop, String header, String... options) {
         this.eshop = eshop;
         this.input = eshop.getInput();
         this.header = header + '\n' + "-".repeat(header.length()) + '\n';
         this.options = options;
+    }
+    
+    public Menu(Eshop eshop) {
+        this(eshop, "");
     }
 
     public Eshop getEshop() {

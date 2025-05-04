@@ -15,28 +15,30 @@ import java.util.ArrayList;
 import eshop.products.Product;
 import eshop.products.Catalog;
 import eshop.util.Util;
+
 /**
  *
  * @author abdul
  */
-public class AdminProductMenu extends Menu{
-    private List<Product> productList;
+public class AdminProductMenu extends Menu {
     private Catalog catalog;
     
     public AdminProductMenu(Eshop eshop) {
-        super(eshop, "ADMIN MENU: PRODUCTS", "View products", "Search products", 
-                "Sort products", "Add Product", "Update Product", "Delete Product", "Back");
+        super(eshop, "ADMIN MENU: PRODUCTS", "Browse products", "Add Product", 
+                "Update Product", "Delete Product", "Back");
         catalog = eshop.getCatalog();
-        productList = new ArrayList<>(catalog.getProductTable().values());
     }
     
     @Override
     public void select(int optionNum) {
         switch(optionNum) {
-            case 4: 
-                eshop.setActiveMenu(new ProductEditor(eshop)); 
+            case 1:
+                eshop.setActiveMenu(new ProductBrowser(eshop));
                 break;
-            case 5:
+            case 2: 
+                eshop.setActiveMenu(new ProductEditor(eshop, this)); 
+                break;
+            case 3:
                 System.out.print("Enter product ID: ");
                 String id1 = input.nextLine();
                 if(catalog.contains(id1)) {
@@ -48,7 +50,7 @@ public class AdminProductMenu extends Menu{
                     Util.pause(input);
                 }
                 break;
-            case 6:
+            case 4:
                 System.out.print("Enter product ID: ");
                 String id2 = input.nextLine();
                 if(catalog.contains(id2)) {
@@ -60,8 +62,11 @@ public class AdminProductMenu extends Menu{
                 }
                 Util.pause(input);
                 break;
-            case 7: 
+            case 5: 
                 eshop.setActiveMenu(new AdminMenu(eshop)); break;
+            default:
+                System.out.println("That is not an option");
+                Util.pause(input);
         }
     }
     
@@ -70,16 +75,16 @@ public class AdminProductMenu extends Menu{
     private void selectProductEditor(ProductSpec spec) {
         switch(spec.getCategory()) {
             case Product.CLOTH: 
-                eshop.setActiveMenu(new ClothEditor(eshop, spec, true));
+                eshop.setActiveMenu(new ClothEditor(eshop, spec, this, true));
                 break;
             case Product.COMPUTER:
-                eshop.setActiveMenu(new ComputerEditor(eshop, spec, true));
+                eshop.setActiveMenu(new ComputerEditor(eshop, spec, this, true));
                 break;
             case Product.PAPER_BOOK:
-                eshop.setActiveMenu(new PaperBookEditor(eshop, spec, true));
+                eshop.setActiveMenu(new PaperBookEditor(eshop, spec, this, true));
                 break;
             case Product.EBOOK:
-                eshop.setActiveMenu(new EBookEditor(eshop, spec, true));
+                eshop.setActiveMenu(new EBookEditor(eshop, spec, this, true));
                 break;
         }
     }

@@ -16,7 +16,7 @@ public final class Util {
     
     private Util() {}
     
-    //Checks if a string only contains numbers and is in the integer range
+    //Checks if a string only contains positive numbers and is in the integer range
     public static boolean isInteger(String num) {
         if(num.isEmpty()) return false;
         int length = num.length();
@@ -27,10 +27,10 @@ public final class Util {
         String maxInt = ((Integer)Integer.MAX_VALUE).toString();
         BigInteger bigInteger = new BigInteger(num);
         return bigInteger.compareTo(new BigInteger(maxInt)) == -1
-                && !bigInteger.equals("0");
+                && !bigInteger.equals(BigInteger.ZERO);
     }
     
-    //Checks if a string only contains numbers and is in the long range
+    //Checks if a string only contains positive numbers and is in the long range
     public static boolean isLong(String num) {
         if(num.isEmpty()) return false;
         int length = num.length();
@@ -41,9 +41,10 @@ public final class Util {
         String maxInt = ((Long)Long.MAX_VALUE).toString();
         BigInteger bigInteger = new BigInteger(num);
         return bigInteger.compareTo(new BigInteger(maxInt)) == -1
-                && !bigInteger.equals("0");
+                && !bigInteger.equals(BigInteger.ZERO);
     }
     
+    //Checks if a string is a decimal number
     public static boolean isDecimal(String num) {
         if(num.isEmpty()) return false;
         int length = num.length();
@@ -62,7 +63,7 @@ public final class Util {
         String maxDec = ((Double)Double.MAX_VALUE).toString();
         BigDecimal bigDecimal = new BigDecimal(num);
         return bigDecimal.compareTo(new BigDecimal(maxDec)) == -1
-                && !bigDecimal.equals("0");
+                && !bigDecimal.equals(BigDecimal.ZERO);
     }
     
     //Method to check if a string only contains numbers and letters
@@ -75,9 +76,10 @@ public final class Util {
         return true;
     }
     
+    //Method to check if password is 6 digits long and if it contains a number
+    // a letter and a special character
     public static boolean authorizePassword(String password){
-        //Method to check if password is 6 digits long and if it contains a number
-        // a letter and a special character
+        
         int numCount = 0, letterCount = 0, specialCount = 0;
         
         for (int i = 0; i < password.length(); i++) {
@@ -94,9 +96,21 @@ public final class Util {
             return false;
     }
     
+    //Method that prompts the user to press enter to continue
+    //Required to notify the user of something before the console clears
     public static void pause(Scanner input) {
         System.out.println("Press enter to continue");
         input.nextLine();
     }
+    
+    //Omits any part of the string that exceeds the length and replaces the last
+    //three characters before the length with "..."
+    public static String cut(String str, int length) {
+        if(str.length() > length) {
+            return str.substring(0, length - 3) + "...";
+        }
+        return str;
+    }
+    
     
 }

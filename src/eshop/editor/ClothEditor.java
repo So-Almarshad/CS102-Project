@@ -7,14 +7,14 @@ package eshop.editor;
 import eshop.launcher.Eshop;
 import eshop.util.Util;
 import eshop.products.Cloth;
-
+import eshop.launcher.Menu;
 /**
  *
  * @author abdul
  */
 public final class ClothEditor extends ProductEditor {
-    public ClothEditor(Eshop eshop, ProductSpec spec, boolean updating) {
-        super(eshop, spec, updating);
+    public ClothEditor(Eshop eshop, ProductSpec spec, Menu returnMenu, boolean updating) {
+        super(eshop, spec, returnMenu, updating);
         extraOptions = new String[CLOTH_OPTION_COUNT];
         updateExtraOptions();
     }
@@ -59,19 +59,22 @@ public final class ClothEditor extends ProductEditor {
     
     @Override
     protected void addProduct() {
-        Cloth cloth = new Cloth(catalog, spec.getProductId(), 
+        Cloth cloth = new Cloth(catalog,
                 spec.getBrand(), spec.getName(), spec.getDescription(), 
                 spec.getPrice(), spec.getQuantity(), spec.getClothSize(), 
                 spec.getColor(), spec.getClothType());
-        catalog.add(cloth, spec.getQuantity());
+        catalog.add(cloth);
+        spec.setProductId(catalog.findMatchingProduct(cloth).getProductId());
     }
     
     @Override
     protected void updateProduct() {
-        Cloth cloth = new Cloth(catalog, spec.getProductId(), 
+        Cloth cloth = new Cloth(catalog,
                 spec.getBrand(), spec.getName(), spec.getDescription(), 
                 spec.getPrice(), spec.getQuantity(), spec.getClothSize(), 
                 spec.getColor(), spec.getClothType());
+        cloth.setProductId(spec.getProductId());
+        product = cloth;
         catalog.update(cloth.getProductId(), cloth);
     }
 

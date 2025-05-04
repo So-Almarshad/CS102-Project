@@ -5,6 +5,7 @@
 package eshop.editor;
 
 import eshop.launcher.Eshop;
+import eshop.launcher.Menu;
 import eshop.products.PaperBook;
 import eshop.util.Util;
 
@@ -13,8 +14,8 @@ import eshop.util.Util;
  * @author abdul
  */
 public final class PaperBookEditor extends ProductEditor {
-    public PaperBookEditor(Eshop eshop, ProductSpec spec, boolean updating) {
-        super(eshop, spec, updating);
+    public PaperBookEditor(Eshop eshop, ProductSpec spec, Menu returnMenu, boolean updating) {
+        super(eshop, spec, returnMenu, updating);
         extraOptions = new String[PAPER_BOOK_OPTION_COUNT];
         updateExtraOptions();
     }
@@ -41,8 +42,8 @@ public final class PaperBookEditor extends ProductEditor {
             case 5:
                 System.out.print("Enter ISBN: ");
                 String tempIsbn = input.nextLine().trim();
-                if(tempIsbn.length() == 13 && Util.isInteger(tempIsbn)) {
-                    spec.setGenre(input.nextLine());
+                if(tempIsbn.length() == 13 && Util.isLong(tempIsbn)) {
+                    spec.setIsbn(tempIsbn);
                 }
                 else {
                     System.out.println("ISBN should be 13 digits");
@@ -84,6 +85,7 @@ public final class PaperBookEditor extends ProductEditor {
                                 + "(enter \"H\") or soft-cover (enter \"S\")");
                         Util.pause(input);
                 }
+                break;
             default:
                 System.out.println("That is not an option");
                 Util.pause(input);
@@ -93,7 +95,7 @@ public final class PaperBookEditor extends ProductEditor {
     
     @Override
     protected void addProduct() {
-        PaperBook paperBook = new PaperBook(catalog, spec.getProductId(), 
+        PaperBook paperBook = new PaperBook(catalog,  
                         spec.getBrand(), spec.getName(), spec.getDescription(), 
                         spec.getPrice(), spec.getQuantity(), spec.getTitle(), 
                         spec.getAuthor(), spec.getPublisher(), spec.getGenre(), 
@@ -104,12 +106,14 @@ public final class PaperBookEditor extends ProductEditor {
     
     @Override
     protected void updateProduct() {
-        PaperBook paperBook = new PaperBook(catalog, spec.getProductId(), 
+        PaperBook paperBook = new PaperBook(catalog, 
                         spec.getBrand(), spec.getName(), spec.getDescription(), 
                         spec.getPrice(), spec.getQuantity(), spec.getTitle(), 
                         spec.getAuthor(), spec.getPublisher(), spec.getGenre(), 
                         spec.getIsbn(), spec.getNumberOfPages(), spec.getWeight(), 
                         spec.getTypeOfCover());
+        paperBook.setProductId(spec.getProductId());
+        product = paperBook;
         catalog.update(paperBook.getProductId(), paperBook);
     }
 

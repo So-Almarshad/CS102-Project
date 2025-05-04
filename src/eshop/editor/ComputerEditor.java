@@ -5,6 +5,7 @@
 package eshop.editor;
 
 import eshop.launcher.Eshop;
+import eshop.launcher.Menu;
 import eshop.products.Computer;
 import eshop.util.Util;
 
@@ -13,9 +14,10 @@ import eshop.util.Util;
  * @author abdul
  */
 public final class ComputerEditor extends ProductEditor {
-    public ComputerEditor(Eshop eshop, ProductSpec spec, boolean updating) {
-        super(eshop, spec, updating);
+    public ComputerEditor(Eshop eshop, ProductSpec spec, Menu returnMenu, boolean updating) {
+        super(eshop, spec, returnMenu, updating);
         extraOptions = new String[COMPUTER_OPTION_COUNT];
+        updateExtraOptions();
     }
     @Override
     protected void selectTypeSpecificOptions(int optionNum) {
@@ -25,7 +27,7 @@ public final class ComputerEditor extends ProductEditor {
                 String memoryTemp = input.nextLine().trim();
                 if(Util.isLong(memoryTemp)) {
                     spec.setMemorySizeStr(memoryTemp);
-                    spec.setMemorySize(Integer.parseInt(memoryTemp));
+                    spec.setMemorySize(Long.parseLong(memoryTemp));
                 }
                 else {
                     System.out.println("Memory size should be a positive integer");
@@ -35,12 +37,12 @@ public final class ComputerEditor extends ProductEditor {
             case 2:
                 System.out.print("Enter processor speed: ");
                 String processorTemp = input.nextLine().trim();
-                if(Util.isLong(processorTemp)) {
+                if(Util.isDecimal(processorTemp)) {
                     spec.setProcessorSpeedStr(processorTemp);
-                    spec.setProcessorSpeed(Integer.parseInt(processorTemp));
+                    spec.setProcessorSpeed(Double.parseDouble(processorTemp));
                 }
                 else {
-                    System.out.println("Processor speed should be a positive integer");
+                    System.out.println("Processor speed should be a positive decimal");
                     Util.pause(input);
                 }
                 break;
@@ -49,10 +51,10 @@ public final class ComputerEditor extends ProductEditor {
                 String hddTemp = input.nextLine().trim();
                 if(Util.isLong(hddTemp)) {
                     spec.setHardDiskSizeStr(hddTemp);
-                    spec.setHardDiskSize(Integer.parseInt(hddTemp));
+                    spec.setHardDiskSize(Long.parseLong(hddTemp));
                 }
                 else {
-                    System.out.println("Processor speed should be a positive integer");
+                    System.out.println("Hard disk size should be a positive integer");
                     Util.pause(input);
                 }
                 break;
@@ -65,7 +67,7 @@ public final class ComputerEditor extends ProductEditor {
     
     @Override
     protected void addProduct() {
-        Computer computer = new Computer(catalog, spec.getProductId(), 
+        Computer computer = new Computer(catalog,
                 spec.getBrand(), spec.getName(), spec.getDescription(), 
                 spec.getPrice(), spec.getQuantity(), spec.getMemorySize(), 
                 spec.getProcessorSpeed(), spec.getHardDiskSize());
@@ -74,10 +76,12 @@ public final class ComputerEditor extends ProductEditor {
     
     @Override
     protected void updateProduct() {
-        Computer computer = new Computer(catalog, spec.getProductId(), 
+        Computer computer = new Computer(catalog,
                 spec.getBrand(), spec.getName(), spec.getDescription(), 
                 spec.getPrice(), spec.getQuantity(), spec.getMemorySize(), 
                 spec.getProcessorSpeed(), spec.getHardDiskSize());
+        computer.setProductId(spec.getProductId());
+        product = computer;
         catalog.update(computer.getProductId(), computer);
     }
 
