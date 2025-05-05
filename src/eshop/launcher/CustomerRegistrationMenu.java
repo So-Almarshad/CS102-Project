@@ -74,7 +74,8 @@ public class CustomerRegistrationMenu extends Menu {
                 }
                 break;
             case 6:
-                eshop.setActiveMenu(new MainMenu(eshop)); break;
+                eshop.setActiveMenu(new MainMenu(eshop)); 
+                break;
             default: 
                 System.out.println("That is not an option");
                 Util.pause(input);

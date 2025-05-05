@@ -4,21 +4,14 @@
  */
 package eshop.view;
 
-import eshop.editor.ProductEditor;
-import eshop.launcher.AdminProductMenu;
 import eshop.launcher.Eshop;
 import eshop.launcher.Menu;
-import eshop.products.Catalog;
 import eshop.products.Product;
-import eshop.users.Administrator;
 import eshop.users.Basket;
 import eshop.users.BasketItem;
 import eshop.users.Customer;
-import eshop.users.User;
 import eshop.util.Util;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  *

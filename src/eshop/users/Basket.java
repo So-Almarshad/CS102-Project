@@ -4,14 +4,12 @@
  */
 package eshop.users;
 
-import eshop.products.Catalog;
 import eshop.products.Product;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  *
