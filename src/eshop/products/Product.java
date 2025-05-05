@@ -12,14 +12,14 @@ import eshop.util.Util;
  * @author Saud
  */
 public class Product implements Serializable{
-    private Catalog catalog;
-    private String category;
-    private String productId;
-    private String brand;
-    private String name;
-    private String description;
-    private double price;
-    private int quantity;
+    protected Catalog catalog;
+    protected String category;
+    protected String productId;
+    protected String brand;
+    protected String name;
+    protected String description;
+    protected double price;
+    protected int quantity;
     
     public static final String CLOTH = "Cloth";
     public static final String COMPUTER = "Computer";
@@ -109,6 +109,10 @@ public class Product implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
+
+    public Catalog getCatalog() {
+        return catalog;
+    }
     
     /******METHODS******/
     
@@ -189,7 +193,7 @@ public class Product implements Serializable{
     public String toString() {
         return getStartString() + getMiddleString() + getEndString();
     }
-
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -216,4 +220,11 @@ public class Product implements Serializable{
         }
         return Objects.equals(this.description, other.description);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(category, productId, brand, name, description, price, quantity);
+    }
+    
+    
 }

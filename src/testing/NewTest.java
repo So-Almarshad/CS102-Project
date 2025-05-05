@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package test;
+package testing;
 import eshop.products.Catalog;
 import eshop.products.*;
 import eshop.util.Util;
@@ -18,111 +18,15 @@ public class NewTest {
     public static void main(String[] args) throws Exception{
         Catalog catalog = new Catalog();
         
-        catalog.add(new Computer(catalog, "Lenovo", "XPS", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1185.35, 28, 32, 1.7, 512));
-        catalog.add(new Computer(catalog, "Lenovo", "XPS", "All-in-one compact desktop with high storage capacity and full HD screen.", 420.9, 15, 16, 3.3, 2048));
-        catalog.add(new Computer(catalog, "MSI", "XPS", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 1776.71, 5, 16, 4.6, 2048));
-        catalog.add(new Computer(catalog, "Razer", "MacBook Air", "Robust build with aluminum chassis and pre-installed productivity software.", 432.12, 14, 8, 3.3, 256));
-        catalog.add(new Computer(catalog, "Apple", "ProBook", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 1699.57, 11, 16, 2.7, 256));
-        catalog.add(new Computer(catalog, "Dell", "Legion", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 538.42, 15, 32, 3.5, 1024));
-        catalog.add(new Computer(catalog, "Lenovo", "Aspire", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 1470.57, 17, 16, 3.2, 1024));
-        catalog.add(new Computer(catalog, "HP", "MacBook Pro", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1902.39, 19, 8, 2.5, 256));
-        catalog.add(new Computer(catalog, "Microsoft", "Aspire", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 2093.57, 5, 8, 2.7, 1024));
-        catalog.add(new Computer(catalog, "Samsung", "ProBook", "All-in-one compact desktop with high storage capacity and full HD screen.", 860.91, 18, 16, 2.6, 2048));
-        catalog.add(new Computer(catalog, "HP", "Blade", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1288.78, 28, 32, 3.2, 256));
-        catalog.add(new Computer(catalog, "ASUS", "Aspire", "All-in-one compact desktop with high storage capacity and full HD screen.", 481.63, 30, 16, 1.8, 256));
-        catalog.add(new Computer(catalog, "Apple", "IdeaPad", "Robust build with aluminum chassis and pre-installed productivity software.", 1044.56, 29, 32, 1.8, 512));
-        catalog.add(new Computer(catalog, "MSI", "Surface", "Robust build with aluminum chassis and pre-installed productivity software.", 1888.08, 13, 8, 3.7, 256));
-        catalog.add(new Computer(catalog, "Apple", "MacBook Pro", "All-in-one compact desktop with high storage capacity and full HD screen.", 1042.91, 21, 32, 3.1, 512));
-        catalog.add(new Computer(catalog, "Razer", "Aspire", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 2108.99, 18, 16, 3.0, 1024));
-        catalog.add(new Computer(catalog, "Lenovo", "MacBook Air", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 2376.18, 29, 8, 3.1, 512));
-        catalog.add(new Computer(catalog, "Razer", "Aspire", "All-in-one compact desktop with high storage capacity and full HD screen.", 1849.41, 24, 8, 3.5, 2048));
-        catalog.add(new Computer(catalog, "HP", "ProBook", "All-in-one compact desktop with high storage capacity and full HD screen.", 2080.52, 28, 8, 4.1, 512));
-        catalog.add(new Computer(catalog, "Apple", "Surface", "All-in-one compact desktop with high storage capacity and full HD screen.", 1535.26, 26, 8, 3.5, 256));
-        catalog.add(new Computer(catalog, "HP", "MacBook Air", "Robust build with aluminum chassis and pre-installed productivity software.", 596.92, 18, 16, 4.2, 256));
-        catalog.add(new Computer(catalog, "Lenovo", "IdeaPad", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 1343.38, 8, 32, 1.6, 256));
-        catalog.add(new Computer(catalog, "Acer", "Legion", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 592.97, 8, 32, 2.1, 512));
-        catalog.add(new Computer(catalog, "Razer", "XPS", "Robust build with aluminum chassis and pre-installed productivity software.", 1473.98, 17, 8, 2.5, 512));
-        catalog.add(new Computer(catalog, "ASUS", "ProBook", "All-in-one compact desktop with high storage capacity and full HD screen.", 611.51, 24, 8, 4.0, 1024));
-        catalog.add(new Computer(catalog, "Lenovo", "MacBook Air", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 544.34, 20, 8, 2.8, 256));
-        catalog.add(new Computer(catalog, "HP", "XPS", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 2127.59, 14, 16, 2.5, 512));
-        catalog.add(new Computer(catalog, "Apple", "MacBook Air", "All-in-one compact desktop with high storage capacity and full HD screen.", 506.52, 20, 16, 2.5, 256));
-        catalog.add(new Computer(catalog, "MSI", "XPS", "Robust build with aluminum chassis and pre-installed productivity software.", 2375.15, 6, 16, 3.9, 512));
-        catalog.add(new Computer(catalog, "HP", "XPS", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 1935.7, 7, 8, 3.8, 1024));
-        catalog.add(new Computer(catalog, "Acer", "MacBook Air", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 1601.61, 27, 32, 2.0, 512));
-        catalog.add(new Computer(catalog, "Apple", "MacBook Air", "Robust build with aluminum chassis and pre-installed productivity software.", 977.21, 12, 8, 3.3, 256));
-        catalog.add(new Computer(catalog, "Dell", "Aspire", "All-in-one compact desktop with high storage capacity and full HD screen.", 2119.44, 28, 16, 3.6, 256));
-        catalog.add(new Computer(catalog, "ASUS", "XPS", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 2413.37, 21, 16, 2.0, 256));
-        catalog.add(new Computer(catalog, "Acer", "XPS", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 1566.88, 24, 8, 4.5, 2048));
-        catalog.add(new Computer(catalog, "Dell", "Aspire", "All-in-one compact desktop with high storage capacity and full HD screen.", 1871.38, 17, 16, 3.1, 512));
-        catalog.add(new Computer(catalog, "Apple", "Swift", "Robust build with aluminum chassis and pre-installed productivity software.", 1579.17, 26, 8, 2.0, 1024));
-        catalog.add(new Computer(catalog, "Lenovo", "Legion", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 1911.61, 18, 16, 4.0, 256));
-        catalog.add(new Computer(catalog, "Microsoft", "ProBook", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 925.65, 16, 16, 2.8, 512));
-        catalog.add(new Computer(catalog, "Lenovo", "MacBook Air", "Robust build with aluminum chassis and pre-installed productivity software.", 499.98, 15, 16, 2.8, 256));
-        catalog.add(new Computer(catalog, "Razer", "Aspire", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 883.88, 25, 16, 2.7, 256));
-        catalog.add(new Computer(catalog, "Acer", "MacBook Pro", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 946.59, 13, 8, 2.4, 512));
-        catalog.add(new Computer(catalog, "Apple", "MacBook Pro", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1430.93, 16, 8, 4.1, 1024));
-        catalog.add(new Computer(catalog, "Apple", "Legion", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1133.72, 9, 16, 2.3, 512));
-        catalog.add(new Computer(catalog, "MSI", "Blade", "Robust build with aluminum chassis and pre-installed productivity software.", 820.34, 18, 32, 2.8, 1024));
-        catalog.add(new Computer(catalog, "Razer", "Swift", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 877.34, 23, 32, 3.1, 512));
-        catalog.add(new Computer(catalog, "Lenovo", "ProBook", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 461.61, 21, 8, 2.8, 1024));
-        catalog.add(new Computer(catalog, "Lenovo", "Surface", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1193.1, 16, 32, 4.3, 256));
-        catalog.add(new Computer(catalog, "Dell", "Surface", "All-in-one compact desktop with high storage capacity and full HD screen.", 1301.81, 30, 8, 2.1, 512));
-        catalog.add(new Computer(catalog, "Apple", "Surface", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 960.03, 22, 16, 4.0, 1024));
-        catalog.add(new Computer(catalog, "Samsung", "MacBook Pro", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 2133.8, 21, 16, 2.1, 256));
-        catalog.add(new Computer(catalog, "Acer", "Surface", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1025.85, 10, 16, 4.0, 256));
-        catalog.add(new Computer(catalog, "Microsoft", "Surface", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 1558.08, 20, 8, 4.3, 1024));
-        catalog.add(new Computer(catalog, "Microsoft", "XPS", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 2385.33, 22, 8, 1.7, 1024));
-        catalog.add(new Computer(catalog, "Samsung", "Surface", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 432.46, 8, 8, 3.2, 256));
-        catalog.add(new Computer(catalog, "Dell", "Blade", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 1952.26, 20, 8, 3.3, 1024));
-        catalog.add(new Computer(catalog, "Lenovo", "IdeaPad", "All-in-one compact desktop with high storage capacity and full HD screen.", 2066.2, 16, 8, 2.9, 512));
-        catalog.add(new Computer(catalog, "HP", "Swift", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 676.46, 12, 8, 1.8, 512));
-        catalog.add(new Computer(catalog, "Lenovo", "Swift", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 789.66, 23, 32, 3.4, 512));
-        catalog.add(new Computer(catalog, "Samsung", "MacBook Air", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 2188.81, 29, 8, 3.3, 2048));
-        catalog.add(new Computer(catalog, "Microsoft", "ProBook", "All-in-one compact desktop with high storage capacity and full HD screen.", 473.03, 20, 8, 4.5, 2048));
-        catalog.add(new Computer(catalog, "Razer", "MacBook Air", "Robust build with aluminum chassis and pre-installed productivity software.", 2214.03, 23, 16, 4.0, 1024));
-        catalog.add(new Computer(catalog, "Dell", "MacBook Pro", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1180.24, 16, 32, 2.2, 2048));
-        catalog.add(new Computer(catalog, "ASUS", "Swift", "All-in-one compact desktop with high storage capacity and full HD screen.", 2439.95, 5, 8, 2.5, 512));
-        catalog.add(new Computer(catalog, "Lenovo", "MacBook Air", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 2221.31, 29, 8, 2.7, 2048));
-        catalog.add(new Computer(catalog, "MSI", "XPS", "Robust build with aluminum chassis and pre-installed productivity software.", 2136.13, 11, 16, 4.6, 512));
-        catalog.add(new Computer(catalog, "Samsung", "ProBook", "Equipped with the latest processor and a vibrant display, perfect for professionals and students.", 864.01, 30, 16, 4.6, 512));
-        catalog.add(new Computer(catalog, "Lenovo", "IdeaPad", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 2144.46, 25, 16, 4.2, 512));
-        catalog.add(new Computer(catalog, "Lenovo", "IdeaPad", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 2369.67, 8, 8, 2.0, 1024));
-        catalog.add(new Computer(catalog, "HP", "Legion", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 1559.18, 21, 32, 2.2, 1024));
-        catalog.add(new Computer(catalog, "Lenovo", "ProBook", "All-in-one compact desktop with high storage capacity and full HD screen.", 1265.95, 10, 8, 3.3, 256));
-        catalog.add(new Computer(catalog, "Microsoft", "MacBook Pro", "All-in-one compact desktop with high storage capacity and full HD screen.", 2041.93, 14, 16, 2.4, 2048));
-        catalog.add(new Computer(catalog, "Samsung", "MacBook Pro", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 573.71, 11, 8, 4.7, 2048));
-        catalog.add(new Computer(catalog, "Lenovo", "XPS", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 2443.26, 7, 32, 3.1, 512));
-        catalog.add(new Computer(catalog, "Lenovo", "XPS", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1361.22, 26, 32, 2.7, 2048));
-        catalog.add(new Computer(catalog, "MSI", "Surface", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 2094.95, 26, 8, 2.2, 2048));
-        catalog.add(new Computer(catalog, "Samsung", "XPS", "All-in-one compact desktop with high storage capacity and full HD screen.", 991.32, 28, 16, 3.1, 512));
-        catalog.add(new Computer(catalog, "HP", "Blade", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 899.07, 28, 32, 2.4, 1024));
-        catalog.add(new Computer(catalog, "ASUS", "Aspire", "All-in-one compact desktop with high storage capacity and full HD screen.", 2489.91, 18, 32, 3.1, 256));
-        catalog.add(new Computer(catalog, "Lenovo", "Aspire", "All-in-one compact desktop with high storage capacity and full HD screen.", 2257.67, 9, 32, 2.0, 1024));
-        catalog.add(new Computer(catalog, "Lenovo", "Swift", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1867.02, 8, 16, 2.9, 1024));
-        catalog.add(new Computer(catalog, "Acer", "MacBook Pro", "Robust build with aluminum chassis and pre-installed productivity software.", 1980.5, 7, 8, 2.0, 1024));
-        catalog.add(new Computer(catalog, "ASUS", "Swift", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 1710.44, 17, 32, 2.4, 256));
-        catalog.add(new Computer(catalog, "Lenovo", "MacBook Pro", "Robust build with aluminum chassis and pre-installed productivity software.", 1833.74, 11, 32, 4.2, 1024));
-        catalog.add(new Computer(catalog, "Lenovo", "MacBook Air", "Robust build with aluminum chassis and pre-installed productivity software.", 1768.08, 5, 8, 4.4, 1024));
-        catalog.add(new Computer(catalog, "Apple", "Legion", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1882.84, 22, 32, 3.3, 512));
-        catalog.add(new Computer(catalog, "Lenovo", "ProBook", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 2217.92, 13, 32, 1.8, 1024));
-        catalog.add(new Computer(catalog, "HP", "Legion", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 976.35, 19, 8, 4.7, 2048));
-        catalog.add(new Computer(catalog, "Microsoft", "MacBook Pro", "All-in-one compact desktop with high storage capacity and full HD screen.", 2195.39, 12, 8, 3.5, 512));
-        catalog.add(new Computer(catalog, "Lenovo", "XPS", "All-in-one compact desktop with high storage capacity and full HD screen.", 2417.2, 22, 8, 3.2, 256));
-        catalog.add(new Computer(catalog, "MSI", "XPS", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 1615.65, 23, 16, 3.5, 512));
-        catalog.add(new Computer(catalog, "Razer", "Blade", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 2098.28, 5, 32, 2.4, 2048));
-        catalog.add(new Computer(catalog, "Lenovo", "Aspire", "All-in-one compact desktop with high storage capacity and full HD screen.", 1725.46, 27, 8, 2.0, 1024));
-        catalog.add(new Computer(catalog, "Razer", "MacBook Air", "All-in-one compact desktop with high storage capacity and full HD screen.", 2496.72, 12, 8, 1.8, 1024));
-        catalog.add(new Computer(catalog, "Razer", "Aspire", "All-in-one compact desktop with high storage capacity and full HD screen.", 1927.1, 25, 32, 4.0, 2048));
-        catalog.add(new Computer(catalog, "Lenovo", "Blade", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 1154.43, 16, 8, 3.1, 2048));
-        catalog.add(new Computer(catalog, "Apple", "ProBook", "Robust build with aluminum chassis and pre-installed productivity software.", 881.87, 21, 8, 4.6, 512));
-        catalog.add(new Computer(catalog, "MSI", "Legion", "All-in-one compact desktop with high storage capacity and full HD screen.", 961.29, 5, 16, 2.3, 2048));
-        catalog.add(new Computer(catalog, "MSI", "IdeaPad", "Comes with advanced cooling and high-refresh rate display for gaming enthusiasts.", 2347.4, 25, 16, 4.6, 256));
-        catalog.add(new Computer(catalog, "Acer", "Surface", "Ultra-slim design with long battery life and responsive keyboard for productivity on-the-go.", 1600.35, 20, 8, 2.5, 2048));
+        addCloths(catalog);
+        addComputers(catalog);
         
+        addPaperBooks(catalog);
+        addEbooks(catalog);
         
         randomizeQuantities(catalog);
         
-        File file = new File("ClothTest.dat");
+        File file = new File("large_sample_test.dat");
         saveCatalogToFile(catalog, file);
     }
     public static void randomizeQuantities(Catalog catalog) {

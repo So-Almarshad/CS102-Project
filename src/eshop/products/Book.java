@@ -10,12 +10,12 @@ import java.util.Objects;
  * @author Saud
  */
 public class Book extends Product{
-    private String title;
-    private String author;
-    private String publisher;
-    private String genre;
-    private String isbn;
-    private int numberOfPages;
+    protected String title;
+    protected String author;
+    protected String publisher;
+    protected String genre;
+    protected String isbn;
+    protected int numberOfPages;
 
     public Book(Catalog catalog, String CATEGORY, 
             String brand, String name, String description, double price,
@@ -136,6 +136,11 @@ public class Book extends Product{
         return super.equals(obj) && Objects.equals(this.isbn, other.isbn);
     }
     
-    
+    @Override
+    public int hashCode() {
+        return Objects.hash(category, productId, brand, name, description, 
+                price, quantity, title, author, publisher, genre, isbn, 
+                numberOfPages);
+    }
     
 }

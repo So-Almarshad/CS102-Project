@@ -4,6 +4,7 @@
  */
 package eshop.launcher;
 
+import eshop.view.ProductBrowser;
 import eshop.util.Util;
 import eshop.users.Customer;
 import eshop.users.CustomerDatabase;
@@ -39,7 +40,7 @@ public class CustomerLoginMenu extends Menu {
                 if(isValidCredentials()) {
                     eshop.setActiveUser(customerDatabase.find(username));
                     System.out.println("Login successful");
-                    eshop.setActiveMenu(new ProductBrowser(eshop));
+                    eshop.setActiveMenu(new CustomerMenu(eshop));
                 }
                 else {
                     System.out.println("Incorrect username or password");

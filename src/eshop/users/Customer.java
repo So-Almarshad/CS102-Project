@@ -4,6 +4,8 @@
  */
 package eshop.users;
 
+import java.util.Objects;
+
 /**
  *
  * @author abdul
@@ -12,11 +14,13 @@ public class Customer extends User{
     
     private Card paymentCard;
     private Address shippingAddress;
+    private Basket basket;
     
     public Customer(String username, String password, String name, int age, Card paymentCard, Address shippingAddress) {
         super(username, password, name, age);
         this.paymentCard = paymentCard;
         this.shippingAddress = shippingAddress;
+        this.basket = new Basket(this);
     }
     
     public Card getPaymentCard() {
@@ -33,5 +37,14 @@ public class Customer extends User{
 
     public void setShippingAddress(Address shippingAddress) {
         this.shippingAddress = shippingAddress;
+    }
+
+    public Basket getBasket() {
+        return basket;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(paymentCard, shippingAddress);
     }
 }

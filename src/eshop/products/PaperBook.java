@@ -13,8 +13,8 @@ import java.util.Objects;
  */
 public class PaperBook extends Book{
 
-    private double weight;
-    private String typeOfCover;
+    protected double weight;
+    protected String typeOfCover;
     public final static String HARD_COVER = "hard-cover";
     public final static String SOFT_COVER = "soft-cover";
 
@@ -88,5 +88,10 @@ public class PaperBook extends Book{
         return super.equals(obj) && Objects.equals(this.typeOfCover, other.typeOfCover);
     }
     
-    
+    @Override
+    public int hashCode() {
+        return Objects.hash(category, productId, brand, name, description, 
+                price, quantity, title, author, publisher, genre, isbn, 
+                numberOfPages, weight, typeOfCover);
+    }
 }

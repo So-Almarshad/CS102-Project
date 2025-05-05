@@ -11,9 +11,9 @@ import java.util.Objects;
  * @author Saud
  */
 public class Cloth extends Product{
-    private int size;
-    private String color;
-    private String type;
+    protected int size;
+    protected String color;
+    protected String type;
     
     public Cloth(Catalog catalog, String brand, String name, 
             String description, double price, int quantity, int size, 
@@ -91,5 +91,9 @@ public class Cloth extends Product{
         return super.equals(obj) && Objects.equals(this.type, other.type);
     }
     
-    
+    @Override
+    public int hashCode() {
+        return Objects.hash(category, productId, brand, name, description, 
+                price, quantity, size, color, type);
+    }
 }

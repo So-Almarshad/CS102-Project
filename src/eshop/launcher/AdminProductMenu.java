@@ -4,6 +4,7 @@
  */
 package eshop.launcher;
 
+import eshop.view.ProductBrowser;
 import eshop.editor.ComputerEditor;
 import eshop.editor.ProductEditor;
 import eshop.editor.PaperBookEditor;

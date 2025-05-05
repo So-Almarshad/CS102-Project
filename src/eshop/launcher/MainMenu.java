@@ -26,7 +26,7 @@ public class MainMenu extends Menu {
                     eshop.close();
                     System.out.println("Progress saved");
                 } catch (Exception e) 
-                {System.err.println("Save failed");} 
+                {e.printStackTrace();} 
                 break;
             default:
                 System.out.println("That is not an option");

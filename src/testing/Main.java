@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package test;
+package testing;
 
 import eshop.launcher.Eshop;
 import java.io.*;
@@ -17,7 +17,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
         
         File userFile = new File("User_Test.dat");
-        File catalogFile = new File("Catalog_Test.dat");
+        File catalogFile = new File("large_sample_test.dat");
         
         Eshop eshop = new Eshop(userFile, catalogFile);
         eshop.launch(input);

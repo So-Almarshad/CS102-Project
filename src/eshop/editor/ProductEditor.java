@@ -7,8 +7,8 @@ package eshop.editor;
 import eshop.launcher.AdminProductMenu;
 import eshop.launcher.Eshop;
 import eshop.launcher.Menu;
-import eshop.launcher.ProductBrowser;
-import eshop.launcher.ProductViewer;
+import eshop.view.ProductBrowser;
+import eshop.view.ProductViewer;
 import eshop.util.Util;
 import eshop.products.*;
 /**
@@ -65,7 +65,7 @@ public class ProductEditor extends Menu {
         extraOptions = new String[0];
         updateOptions();
     }
-
+    
     //Display method that inserts category specific options between "Name" and
     //"Description"
     @Override
@@ -151,38 +151,37 @@ public class ProductEditor extends Menu {
                 }
                 break;
             case 4:
-                if(hasMissingFields()) {
-                    System.out.println("Some fields are missing"); 
-                    Util.pause(input); 
-                }
-                else if(updating) {
-                    updateProduct();
-                    
-                    if(returnMenu instanceof ProductViewer productViewer) {
-                        productViewer.setProduct(product);
-                        eshop.setActiveMenu(returnMenu);
-                    }
-                    else {
-                        System.out.println("Product successfully updated");
-                        Util.pause(input);
-                        
-                    }
-                }
-                else {
-                    addProduct();
-                    System.out.println("Product successfully added: " + spec.getProductId());
-                    eshop.setActiveMenu(new ProductEditor(eshop, returnMenu));
-                    Util.pause(input);
-                }
-                break;
+                confirm();
             case 5:
-                try {
-                    eshop.saveCatalogData();
-                } catch(Exception e) {}
                 eshop.setActiveMenu(returnMenu); 
                 break;
             default:
                 selectTypeSpecificOptions(optionNum - 3);
+        }
+    }
+    
+    // Adds/updates the product if no fields are missing
+    private void confirm() {
+        if(hasMissingFields()) {
+            System.out.println("Some fields are missing"); 
+            Util.pause(input); 
+        }
+        else if(updating) {
+            updateProduct();
+            if(returnMenu instanceof ProductViewer productViewer) {
+                productViewer.setProduct(product);
+                eshop.setActiveMenu(returnMenu);
+            }
+            else {
+                System.out.println("Product successfully updated");
+                Util.pause(input);
+            }
+        }
+        else {
+            addProduct();
+            System.out.println("Product successfully added: " + spec.getProductId());
+            eshop.setActiveMenu(new ProductEditor(eshop, returnMenu));
+            Util.pause(input);
         }
     }
     
@@ -266,7 +265,7 @@ public class ProductEditor extends Menu {
             "Back");
     }
     
-    //Updates the category specific options
+    //Updates the category specific options. overridden by subtypes.
     protected void updateExtraOptions() {}
     
     protected boolean hasMissingFields() {

@@ -4,14 +4,16 @@
  */
 package eshop.products;
 
+import java.util.Objects;
+
 /**
  *
  * @author Saud
  */
 public class Computer extends Product {
-    private long memorySize;
-    private double processorSpeed;
-    private long hardDiskSize;
+    protected long memorySize;
+    protected double processorSpeed;
+    protected long hardDiskSize;
 
     public Computer(Catalog catalog, String brand, String name, 
             String description, double price, int quantity, long memorySize, 
@@ -92,5 +94,9 @@ public class Computer extends Product {
         return super.equals(obj) && this.hardDiskSize == other.hardDiskSize;
     }
     
-    
+    @Override
+    public int hashCode() {
+        return Objects.hash(category, productId, brand, name, description, 
+                price, quantity, memorySize, processorSpeed, hardDiskSize);
+    }
 }

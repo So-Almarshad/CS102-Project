@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package eshop.launcher;
+package eshop.view;
 
+import eshop.launcher.AdminMenu;
+import eshop.launcher.Eshop;
+import eshop.launcher.Menu;
 import eshop.users.Customer;
 import eshop.users.CustomerDatabase;
 import eshop.util.Comparators;
@@ -14,7 +17,7 @@ import java.util.List;
  *
  * @author abdul
  */
-public class CustomerBrowser extends Menu {
+public class CustomerListing extends Menu {
     private static final String SORT_OPTIONS = "1. Username\n"
                                              + "2. Name\n"
                                              + "3. Age\n"
@@ -28,7 +31,7 @@ public class CustomerBrowser extends Menu {
     private int pageNum;
     private int lastPage;
     
-    public CustomerBrowser(Eshop eshop) {
+    public CustomerListing(Eshop eshop) {
         super(eshop, "", "Sort view", "Reset view", "Select page", "Previous page", "Next page", "Back");
         
         header = "CUSTOMER LIST";
@@ -81,6 +84,7 @@ public class CustomerBrowser extends Menu {
                 break;
             case 2:
                 customerList = database.getList();
+                pageNum = 1;
                 break;
             case 3:
                 System.out.print("Enter page num.: ");

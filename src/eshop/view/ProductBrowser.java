@@ -2,19 +2,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package eshop.launcher;
+package eshop.view;
 
 import eshop.editor.ProductEditor;
+import eshop.launcher.AdminProductMenu;
+import eshop.launcher.CustomerMenu;
+import eshop.launcher.Eshop;
+import eshop.launcher.Menu;
 import eshop.products.*;
 import eshop.users.*;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 import eshop.util.Util;
 import eshop.util.Comparators;
-import java.util.Collections;
-import java.util.Comparator;
+
 /**
  *
  * @author abdul
@@ -32,12 +34,14 @@ public class ProductBrowser extends Menu{
                                              + "3. Brand\n"
                                              + "4. Name\n"
                                              + "5. Description\n"
-                                             + "6. Memory size\n"
-                                             + "7. Processor speed\n"
-                                             + "8. Hard disk size\n"
-                                             + "9. Title\n"
-                                             + "10. Author\n"
-                                             + "11. Switch order\n";
+                                             + "6. Price\n"
+                                             + "7. Memory size\n"
+                                             + "8. Processor speed\n"
+                                             + "9. Hard disk size\n"
+                                             + "10. Title\n"
+                                             + "11. Author\n"
+                                             + "12. Switch order\n"
+                                             + "13. Back\n";
     
     private static final String TABLE_HEADER = String.format("%-8s%-15s%-20s%-20s%-20s%-40s%-15s%s",
             "Num.", "ID", "Category", "Brand", "Name", "Description", "Price", "Quantity");
@@ -127,6 +131,7 @@ public class ProductBrowser extends Menu{
                 break;
             case 4:
                 productList = catalog.getList();
+                pageNum = 1;
                 break;
             case 5:
                 System.out.print("Enter product ID or listing num.: ");
@@ -180,7 +185,7 @@ public class ProductBrowser extends Menu{
                 Util.pause(input);
         }
     }
-//    setOptions("Filter: " + filterString(), "Search", "Reset view", "Sort view\n", "Select product", "Add product\n", "Select page", "Next page", "Previous page", "Back");
+//    setOptions("Filter: " + filterString(), "Search", "Reset view\n", "Select product", "View basket\n", "select page", "Previous page", "Next page", "Logout");
     private void selectCustomerOptions(int optionNum) {
         switch(optionNum) {
             case 1: 
@@ -194,6 +199,7 @@ public class ProductBrowser extends Menu{
                 break;
             case 3:
                 productList = catalog.getList();
+                pageNum = 1;
                 break;
             case 4:
                 System.out.print("Enter product ID or listing num.: ");
@@ -203,21 +209,45 @@ public class ProductBrowser extends Menu{
                     Util.pause(input);
                     break;
                 }
-                long selectionNum = Long.parseLong(selection);
-                if(selection.length() == 10 && catalog.contains(selection)) {
-                    eshop.setActiveMenu(new ProductViewer(eshop, catalog.get(selection), this));
-                }
-                else if(selectionNum <= productList.size()){
-                    eshop.setActiveMenu(new ProductViewer(eshop, productList.get((int)selectionNum - 1), this));
-                }
-                else {
+                Product product1 = getFromSelection(selection);
+                if(product1 == null) {
                     System.out.println("Product not found");
                     Util.pause(input);
+                    break;
                 }
+                eshop.setActiveMenu(new ProductViewer(eshop, product1, this));
                 break;
-            case 5: //view basket
+            case 5: 
+                System.out.print("Enter product ID or listing num.: ");
+                String selection1 = input.nextLine().trim();
+                if(!Util.isLong(selection1)) {
+                    System.out.println("Selection num. must be a positive integer");
+                    Util.pause(input);
+                    break;
+                }
+                Product product2 = getFromSelection(selection1);
+                if(product2 == null) {
+                    System.out.println("Product not found");
+                    Util.pause(input);
+                    break;
+                }
+                
+                System.out.print("Enter amount to add: ");
+                String amount = input.nextLine().trim();
+                if(!Util.isInteger(amount)) {
+                    System.out.println("Amount to buy must be a positive integer");
+                    Util.pause(input);
+                    break;
+                }
+                int amountToAdd = Integer.parseInt(amount);
+                ((Customer)user).getBasket().add(product2, amountToAdd);
+                System.out.println("Product added to basket");
+                Util.pause(input);
                 break;
             case 6:
+                eshop.setActiveMenu(new BasketViewer(eshop, this));
+                break;
+            case 7:
                 System.out.print("Enter page num.: ");
                 String temp = input.nextLine().trim();
                 if(Util.isInteger(temp)) {
@@ -229,16 +259,16 @@ public class ProductBrowser extends Menu{
                     Util.pause(input);
                 }
                 break;
-            case 7:
+            case 8:
                 if(pageNum > 1)
                     pageNum--;
                 break;
-            case 8:
+            case 9:
                 if(pageNum < lastPage)
                     pageNum++;
                 break;
-            case 9:
-                eshop.setActiveMenu(new MainMenu(eshop));
+            case 10:
+                eshop.setActiveMenu(new CustomerMenu(eshop));
                 break;
             default:
                 System.out.println("That is not an option");
@@ -341,23 +371,28 @@ public class ProductBrowser extends Menu{
                     productList.sort(descending ? Comparators.DESCRIPTION_COMPARATOR.reversed() : Comparators.DESCRIPTION_COMPARATOR);
                     break;
                 case 6:
-                    productList.sort(descending ? Comparators.DESCENDING_MEMORY_SIZE_COMPARATOR : Comparators.ASCENDING_MEMORY_SIZE_COMPARATOR);
+                    productList.sort(descending ? Comparators.PRICE_COMPARATOR.reversed() : Comparators.PRICE_COMPARATOR);
                     break;
                 case 7:
-                    productList.sort(descending ? Comparators.DESCENDING_PROCESSOR_SPEED_COMPARATOR : Comparators.ASCENDING_PROCESSOR_SPEED_COMPARATOR);
+                    productList.sort(descending ? Comparators.DESCENDING_MEMORY_SIZE_COMPARATOR : Comparators.ASCENDING_MEMORY_SIZE_COMPARATOR);
                     break;
                 case 8:
-                    productList.sort(descending ? Comparators.DESCENDING_HARD_DISK_SIZE_COMPARATOR : Comparators.ASCENDING_HARD_DISK_SIZE_COMPARATOR);
+                    productList.sort(descending ? Comparators.DESCENDING_PROCESSOR_SPEED_COMPARATOR : Comparators.ASCENDING_PROCESSOR_SPEED_COMPARATOR);
                     break;
                 case 9:
-                    productList.sort(descending ? Comparators.DESCENDING_TITLE_COMPARATOR : Comparators.ASCENDING_TITLE_COMPARATOR);
+                    productList.sort(descending ? Comparators.DESCENDING_HARD_DISK_SIZE_COMPARATOR : Comparators.ASCENDING_HARD_DISK_SIZE_COMPARATOR);
                     break;
                 case 10:
-                    productList.sort(descending ? Comparators.DESCENDING_AUTHOR_COMPARATOR : Comparators.ASCENDING_AUTHOR_COMPARATOR);
+                    productList.sort(descending ? Comparators.DESCENDING_TITLE_COMPARATOR : Comparators.ASCENDING_TITLE_COMPARATOR);
                     break;
                 case 11:
+                    productList.sort(descending ? Comparators.DESCENDING_AUTHOR_COMPARATOR : Comparators.ASCENDING_AUTHOR_COMPARATOR);
+                    break;
+                case 12:
                     stillChoosing = true;
                     descending = !descending;
+                    break;
+                case 13:
                     break;
                 default:
                     stillChoosing = true;
@@ -371,7 +406,7 @@ public class ProductBrowser extends Menu{
         if(adminAccess) 
             setOptions("Filter: " + filterString(), "Search", "Sort view", "Reset view\n", "Select product", "Add product\n", "Select page", "Previous page", "Next page", "Back");
         else
-            setOptions("Filter: " + filterString(), "Search", "Reset view\n", "Select product", "View basket\n", "select page", "Previous page", "Next page", "Logout");
+            setOptions("Filter: " + filterString(), "Search", "Reset view\n", "Select product", "Add to basket", "View basket\n", "select page", "Previous page", "Next page", "Back");
         if(!productList.isEmpty())
             lastPage = (int)Math.ceil(productList.size() / 10.0);
         else
@@ -409,5 +444,16 @@ public class ProductBrowser extends Menu{
         this.productList = productList;
     }
     
-    
+    private Product getFromSelection(String selection) {
+        long selectionNum = Long.parseLong(selection);
+        if(selection.length() == 10 && catalog.contains(selection)) {
+            return catalog.get(selection);
+        }
+        else if(selectionNum <= productList.size()){
+            return productList.get((int)selectionNum - 1);
+        }
+        else {
+            return null;
+        }
+    }
 }

@@ -2,16 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package eshop.launcher;
+package eshop.view;
 
 import eshop.editor.ClothEditor;
 import eshop.editor.ComputerEditor;
 import eshop.editor.EBookEditor;
 import eshop.editor.PaperBookEditor;
-import eshop.editor.ProductEditor;
 import eshop.editor.ProductSpec;
+import eshop.launcher.Eshop;
+import eshop.launcher.Menu;
 import eshop.products.*;
 import eshop.users.Administrator;
+import eshop.users.Basket;
+import eshop.users.Customer;
 import eshop.util.Util;
 /**
  *
@@ -36,7 +39,7 @@ public class ProductViewer extends Menu {
         if(adminAccess) 
             setOptions("Update", "Delete", "Back");
         else
-            setOptions("Add to cart", "Back");
+            setOptions("Add to basket", "Back");
     }
 
     @Override
@@ -89,6 +92,19 @@ public class ProductViewer extends Menu {
     private void selectCustomerOptions(int optionNum) {
         switch(optionNum) {
             case 1:
+                Customer customer = (Customer)eshop.getActiveUser();
+                Basket basket = customer.getBasket();
+                System.out.print("Enter amount to add: ");
+                String amount = input.nextLine().trim();
+                if(!Util.isInteger(amount)) {
+                    System.out.println("Amount to buy must be a positive integer");
+                    Util.pause(input);
+                    break;
+                }
+                int amountToAdd = Integer.parseInt(amount);
+                basket.add(product, amountToAdd);
+                System.out.println("Product added to basket");
+                Util.pause(input);
                 break;
             case 2:
                 eshop.setActiveMenu(returnMenu);

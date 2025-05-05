@@ -4,25 +4,26 @@
  */
 package eshop.launcher;
 
-import eshop.view.CustomerListing;
+import eshop.view.BasketViewer;
+import eshop.view.ProductBrowser;
 
 /**
  *
  * @author abdul
  */
-public class AdminMenu extends Menu {
-    public AdminMenu(Eshop eshop) {
-        super(eshop, "ADMIN MENU", "Products", "Customers", "Logout");
+public class CustomerMenu extends Menu{
+    public CustomerMenu(Eshop eshop) {
+        super(eshop, "CUSTOMER MENU", "Browse products", "View basket", "Logout");
     }
 
     @Override
     public void select(int optionNum) {
         switch(optionNum) {
             case 1: 
-                eshop.setActiveMenu(new AdminProductMenu(eshop)); 
+                eshop.setActiveMenu(new ProductBrowser(eshop)); 
                 break;
             case 2: 
-                eshop.setActiveMenu(new CustomerListing(eshop)); 
+                eshop.setActiveMenu(new BasketViewer(eshop, this)); 
                 break;
             case 3: 
                 eshop.setActiveUser(null);
@@ -30,5 +31,4 @@ public class AdminMenu extends Menu {
                 break;
         }
     }
-    
 }

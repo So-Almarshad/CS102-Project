@@ -6,6 +6,7 @@
 package eshop.users;
 
 import eshop.util.Util;
+import java.util.Objects;
 /**
  *
  * @author SAUD
@@ -52,4 +53,32 @@ public class Address {
             this.postCode = postCode;
         else throw new IllegalArgumentException("Post Code should be numeric");
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(streetName, buildingNumber, postCode);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Address other = (Address) obj;
+        if (!Objects.equals(this.streetName, other.streetName)) {
+            return false;
+        }
+        if (!Objects.equals(this.buildingNumber, other.buildingNumber)) {
+            return false;
+        }
+        return Objects.equals(this.postCode, other.postCode);
+    }
+    
+    
 }

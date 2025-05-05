@@ -8,6 +8,7 @@ package eshop.users;
 import eshop.util.Util;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -54,4 +55,35 @@ public class Card implements Serializable{
     public Date getExpireyDate() {
         return (Date)expireyDate.clone();
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cardNumber, holderName, ccvNumber, expireyDate);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Card other = (Card) obj;
+        if (!Objects.equals(this.cardNumber, other.cardNumber)) {
+            return false;
+        }
+        if (!Objects.equals(this.holderName, other.holderName)) {
+            return false;
+        }
+        if (!Objects.equals(this.ccvNumber, other.ccvNumber)) {
+            return false;
+        }
+        return Objects.equals(this.expireyDate, other.expireyDate);
+    }
+    
+    
 }

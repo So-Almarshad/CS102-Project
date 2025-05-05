@@ -4,12 +4,14 @@
  */
 package eshop.products;
 
+import java.util.Objects;
+
 /**
  *
  * @author SAUD
  */
 public class EBook extends Book{
-    private long size;
+    protected long size;
 
     public EBook(Catalog catalog, String brand, String name, String description, 
             double price, int quantity, String title, String author, String publisher, 
@@ -55,4 +57,10 @@ public class EBook extends Book{
         return super.equals(obj) && this.size == other.size;
     }
    
+    @Override
+    public int hashCode() {
+        return Objects.hash(category, productId, brand, name, description, 
+                price, quantity, title, author, publisher, genre, isbn, 
+                numberOfPages, size);
+    }
 }
