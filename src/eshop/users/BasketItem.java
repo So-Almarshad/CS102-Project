@@ -5,12 +5,13 @@
 package eshop.users;
 
 import eshop.products.Product;
+import java.io.Serializable;
 
 /**
  *
  * @author abdul
  */
-public class BasketItem {
+public class BasketItem implements Serializable{
     private String productId;
     private Product product;
     private int amountToBuy;

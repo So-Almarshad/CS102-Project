@@ -25,7 +25,6 @@ public class AdminRegistrationMenu extends Menu {
     //TODO edit this to account for password encryption
     @Override
     public void select(int optionNum) {
-//        try {
         switch(optionNum) {
             case 1: 
                 System.out.print("Enter username: ");
@@ -69,10 +68,6 @@ public class AdminRegistrationMenu extends Menu {
                 System.out.println("That is not an option");
                 Util.pause(input);
         }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Util.pause(input);
-//        }
         setOptions("Username: " + username, "Password: " + censored, "Name: " + name, "Age: " + ageStr, "Confirm");
     }
     

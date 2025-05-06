@@ -17,7 +17,10 @@ import eshop.products.*;
  */
 public class ProductEditor extends Menu {
     
-    private final String CATEGORY_OPTIONS = "1. Cloth\n"
+    private final String CATEGORY_OPTIONS = "\n".repeat(60)
+                                          + "SELECT CATEGORY\n"
+                                          + "---------------\n"
+                                          + "1. Cloth\n"
                                           + "2. Computer\n"
                                           + "3. Paper book\n"
                                           + "4. E-book\n"

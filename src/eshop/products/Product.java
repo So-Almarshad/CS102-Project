@@ -127,9 +127,9 @@ public class Product implements Serializable{
         if(criteria.isEmpty()) {
             productDetails.add(category.toLowerCase());
             productDetails.add(productId);
-            productDetails.add(brand.toLowerCase());
-            productDetails.add(name.toLowerCase());
-            addDescription(productDetails, description);
+            addMultipleWords(productDetails, brand.toLowerCase());
+            addMultipleWords(productDetails, name.toLowerCase());
+            addMultipleWords(productDetails, description.toLowerCase());
             return productDetails.contains(searchStr.toLowerCase());
         }
         if(criteria.contains(CATEGORY))
@@ -137,16 +137,16 @@ public class Product implements Serializable{
         if(criteria.contains(PRODUCT_ID))
             productDetails.add(productId);
         if(criteria.contains(BRAND))
-            productDetails.add(brand.toLowerCase());
+            addMultipleWords(productDetails, brand.toLowerCase());
         if(criteria.contains(NAME))
-            productDetails.add(name.toLowerCase());
+            addMultipleWords(productDetails, name.toLowerCase());
         if(criteria.contains(DESCRIPTION))
-            addDescription(productDetails, description.toLowerCase());
+            addMultipleWords(productDetails, description.toLowerCase());
         return productDetails.contains(searchStr.toLowerCase());
     }
     
-    private void addDescription(Set<String> set, String description) {
-        String[] descriptionWords = description.split(" ");
+    private void addMultipleWords(Set<String> set, String str) {
+        String[] descriptionWords = str.split(" ");
         for(String s : descriptionWords) {
             set.add(s);
         }

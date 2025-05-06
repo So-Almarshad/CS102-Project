@@ -7,6 +7,8 @@ package eshop.users;
 
 import java.io.Serializable;
 import eshop.util.Util;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  *
@@ -17,7 +19,7 @@ public class User implements Serializable{
     //Missing this requirement "Actors should have distinct usernames."
     
     private String username;
-    private String password;
+    private byte[] password;
     private String name;
     private int age;
 
@@ -26,12 +28,15 @@ public class User implements Serializable{
             this.username = username;
         else
             throw new IllegalArgumentException("Username should be alphanumerical");
-        
-        if (Util.authorizePassword(password))
-            this.password = password;
-        else
-            throw new IllegalArgumentException("Password should be more than"
-                + " six digits long, contains a letter, contains a number, contains a special character");
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            byte[] passwordByteArray = password.getBytes();
+            if (Util.authorizePassword(password))
+                this.password = messageDigest.digest(passwordByteArray);
+            else
+                throw new IllegalArgumentException("Password should be more than"
+                    + " six digits long, contains a letter, contains a number, contains a special character");
+        } catch(NoSuchAlgorithmException e) {e.printStackTrace();}
         
         this.name = name;
         
@@ -53,16 +58,20 @@ public class User implements Serializable{
             throw new IllegalArgumentException("Username should be alphanumerical");
     }
 
-    public String getPassword() {
+    public byte[] getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
-        if (Util.authorizePassword(password))
-            this.password = password;
-        else
-            throw new IllegalArgumentException("Password should be more than"
-                + " six digits long, contains a letter, contains a number, contains a special character");
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            byte[] passwordByteArray = password.getBytes();
+            if (Util.authorizePassword(password))
+                this.password = messageDigest.digest(passwordByteArray);
+            else
+                throw new IllegalArgumentException("Password should be more than"
+                    + " six digits long, contains a letter, contains a number, contains a special character");
+        } catch(NoSuchAlgorithmException e) {e.printStackTrace();}
     }
 
     public String getName() {

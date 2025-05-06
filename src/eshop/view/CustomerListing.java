@@ -11,6 +11,7 @@ import eshop.users.Customer;
 import eshop.users.CustomerDatabase;
 import eshop.util.Comparators;
 import eshop.util.Util;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,7 +22,8 @@ public class CustomerListing extends Menu {
     private static final String SORT_OPTIONS = "1. Username\n"
                                              + "2. Name\n"
                                              + "3. Age\n"
-                                             + "4. Switch order\n";
+                                             + "4. Switch order\n"
+                                             + "5. Back\n";
     
     private static final String TABLE_HEADER = String.format("%-8s%-30s%-30s%s",
             "Num.", "Username", "Name", "Age");
@@ -137,17 +139,19 @@ public class CustomerListing extends Menu {
             
             switch(Integer.parseInt(inputStr)) {
                 case 1: 
-                    customerList.sort(descending ? Comparators.USERNAME_COMPARATOR.reversed() : Comparators.USERNAME_COMPARATOR);
+                    customerList.sort(descending ? Collections.reverseOrder(Comparators.USERNAME_COMPARATOR) : Comparators.USERNAME_COMPARATOR);
                     break;
                 case 2:
-                    customerList.sort(descending ? Comparators.USERNAME_COMPARATOR.reversed() : Comparators.USERNAME_COMPARATOR);
+                    customerList.sort(descending ? Collections.reverseOrder(Comparators.CUSTOMER_NAME_COMPARATOR) : Comparators.CUSTOMER_NAME_COMPARATOR);
                     break;
                 case 3:
-                    customerList.sort(descending ? Comparators.USERNAME_COMPARATOR.reversed() : Comparators.USERNAME_COMPARATOR);
+                    customerList.sort(descending ?  Collections.reverseOrder(Comparators.AGE_COMPARATOR) : Comparators.AGE_COMPARATOR);
                     break;
                 case 4:
                     stillChoosing = true;
                     descending = !descending;
+                    break;
+                case 5:
                     break;
                 default:
                     stillChoosing = true;

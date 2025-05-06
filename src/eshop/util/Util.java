@@ -16,6 +16,17 @@ public final class Util {
     
     private Util() {}
     
+    //checks if a string only has numeric characters
+    public static boolean isNumeric(String num) {
+        if(num.isEmpty()) return false;
+        int length = num.length();
+        for(int i = 0; i < length; i++) {
+            if(!Character.isDigit(num.charAt(i)))
+                return false;
+        }
+        return true;
+    }
+    
     //Checks if a string only contains positive numbers and is in the integer range
     public static boolean isInteger(String num) {
         if(num.isEmpty()) return false;

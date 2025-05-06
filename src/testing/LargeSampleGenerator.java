@@ -14,7 +14,9 @@ import java.util.*;
  *
  * @author abdul
  */
-public class NewTest {
+public class LargeSampleGenerator {
+    //These aren't good/accurate products, but they're useful for testing the
+    //program's functionality
     public static void main(String[] args) throws Exception{
         Catalog catalog = new Catalog();
         
