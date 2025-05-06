@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) throws Exception{
         Scanner input = new Scanner(System.in);
         
-        File userFile = new File("User_Test.dat");
+        File userFile = new File("new_user_test.dat");
         File catalogFile = new File("large_sample_test.dat");
         
         Eshop eshop = new Eshop(userFile, catalogFile);

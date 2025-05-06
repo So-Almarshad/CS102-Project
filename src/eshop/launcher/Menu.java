@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package eshop.launcher;
-import eshop.util.Util;
 import java.util.Scanner;
 /**
  *

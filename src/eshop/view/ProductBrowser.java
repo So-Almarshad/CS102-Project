@@ -16,6 +16,7 @@ import java.util.Set;
 import java.util.HashSet;
 import eshop.util.Util;
 import eshop.util.Comparators;
+import java.util.Collections;
 
 /**
  *
@@ -356,22 +357,22 @@ public class ProductBrowser extends Menu{
             
             switch(Integer.parseInt(inputStr)) {
                 case 1: 
-                    productList.sort(descending ? Comparators.CATEGORY_COMPARATOR.reversed() : Comparators.CATEGORY_COMPARATOR);
+                    productList.sort(descending ? Collections.reverseOrder(Comparators.CATEGORY_COMPARATOR) : Comparators.CATEGORY_COMPARATOR);
                     break;
                 case 2:
-                    productList.sort(descending ? Comparators.ID_COMPARATOR.reversed() : Comparators.ID_COMPARATOR);
+                    productList.sort(descending ? Collections.reverseOrder(Comparators.ID_COMPARATOR) : Comparators.ID_COMPARATOR);
                     break;
                 case 3:
-                    productList.sort(descending ? Comparators.BRAND_COMPARATOR.reversed() : Comparators.BRAND_COMPARATOR);
+                    productList.sort(descending ? Collections.reverseOrder(Comparators.BRAND_COMPARATOR) : Comparators.BRAND_COMPARATOR);
                     break;
                 case 4:
-                    productList.sort(descending ? Comparators.PRODUCT_NAME_COMPARATOR.reversed() : Comparators.PRODUCT_NAME_COMPARATOR);
+                    productList.sort(descending ? Collections.reverseOrder(Comparators.PRODUCT_NAME_COMPARATOR) : Comparators.PRODUCT_NAME_COMPARATOR);
                     break;
                 case 5:
-                    productList.sort(descending ? Comparators.DESCRIPTION_COMPARATOR.reversed() : Comparators.DESCRIPTION_COMPARATOR);
+                    productList.sort(descending ? Collections.reverseOrder(Comparators.DESCRIPTION_COMPARATOR) : Comparators.DESCRIPTION_COMPARATOR);
                     break;
                 case 6:
-                    productList.sort(descending ? Comparators.PRICE_COMPARATOR.reversed() : Comparators.PRICE_COMPARATOR);
+                    productList.sort(descending ? Collections.reverseOrder(Comparators.PRICE_COMPARATOR) : Comparators.PRICE_COMPARATOR);
                     break;
                 case 7:
                     productList.sort(descending ? Comparators.DESCENDING_MEMORY_SIZE_COMPARATOR : Comparators.ASCENDING_MEMORY_SIZE_COMPARATOR);

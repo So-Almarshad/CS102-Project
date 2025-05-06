@@ -5,6 +5,9 @@
 package eshop.launcher;
 
 import eshop.util.Util;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /**
  *
@@ -52,8 +55,13 @@ public class AdminLoginMenu extends Menu {
         setOptions("Username: " + username, "Password: " + censored, "Confirm", "Back");
     }
     private boolean isValidCredentials() {
-        boolean validUsername = username.equals(eshop.getAdmin().getUsername());
-        boolean validPassword = password.equals(eshop.getAdmin().getPassword());
-        return validUsername && validPassword; 
+        try{
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            byte[] digest = messageDigest.digest(password.getBytes());
+            boolean validUsername = username.equals(eshop.getAdmin().getUsername());
+            boolean validPassword = Arrays.equals(digest, eshop.getAdmin().getPassword());
+            return validUsername && validPassword; 
+        } catch(NoSuchAlgorithmException e) {e.printStackTrace();}
+        return false;
     }
 }

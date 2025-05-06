@@ -53,19 +53,6 @@ public class Basket implements Serializable{
         basketTable.remove(productId);
     }
     
-    //removes any amount of products from the basket. if the amount to remove
-    //exceeds or is equal to the amount in basket, removes the product completely
-//    public void remove(String productId, int amountToRemove) {
-//        BasketItem basketItem = basketTable.get(productId);
-//        int amountInBasket = basketItem.getAmountToBuy();
-//        if(amountToRemove < amountInBasket)
-//            basketTable.get(productId).setAmountToBuy(amountInBasket - amountToRemove);
-//        else
-//            basketTable.remove(productId);
-//    }
-    
-    //Purchases all items in the basket. 
-    //Expects that customer payment information is filled.
     public boolean purchase() {
         if(customer.getPaymentCard() == null || customer.getShippingAddress() == null)
             throw new RuntimeException("Purchase without payment information");

@@ -11,8 +11,6 @@ import eshop.editor.PaperBookEditor;
 import eshop.editor.ClothEditor;
 import eshop.editor.ProductSpec;
 import eshop.editor.EBookEditor;
-import java.util.List;
-import java.util.ArrayList;
 import eshop.products.Product;
 import eshop.products.Catalog;
 import eshop.util.Util;

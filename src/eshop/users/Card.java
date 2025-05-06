@@ -7,6 +7,8 @@ package eshop.users;
 
 import eshop.util.Util;
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,31 +18,34 @@ import java.util.Objects;
  */
 public class Card implements Serializable{
 
-    private String cardNumber;
+    private byte[] cardNumber;
     private String holderName;
-    private String ccvNumber;
-    private Date expireyDate;
+    private byte[] ccvNumber;
+    private Date expirationDate;
 
     public Card(String cardNumber, String holderName, String ccvNumber, Date expireyDate) {
         
         if(cardNumber.length() != 16)
             throw new IllegalArgumentException("Card number should be 16-digit");
-        if(!Util.isInteger(cardNumber))
+        if(!Util.isNumeric(cardNumber))
             throw new IllegalArgumentException("Card number should only contain integer values 0-9");
-        
-        this.cardNumber = cardNumber;
-        this.holderName = holderName;
-        
         if(ccvNumber.length() != 3)
             throw new IllegalArgumentException("CCV number should be 3-digit");
-        if(!Util.isInteger(ccvNumber))
+        if(!Util.isNumeric(ccvNumber))
             throw new IllegalArgumentException("CCV number should only contain integer values 0-9");
+        try{
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            byte[] cardNumberDigest = messageDigest.digest(cardNumber.getBytes());
+            byte[] ccvDigest = messageDigest.digest(ccvNumber.getBytes());
+            this.cardNumber = cardNumberDigest;
+            this.ccvNumber = ccvDigest;
+        } catch(NoSuchAlgorithmException e) {e.printStackTrace();}
         
-        this.ccvNumber = ccvNumber;
-        this.expireyDate = expireyDate;
+        this.holderName = holderName;
+        this.expirationDate = expireyDate;
     }
     
-    public String getCardNumber() {
+    public byte[] getCardNumber() {
         return cardNumber;
     }
     
@@ -48,17 +53,17 @@ public class Card implements Serializable{
         return holderName;
     }
     
-    public String getCcvNumber() {
+    public byte[] getCcvNumber() {
         return ccvNumber;
     }
     
-    public Date getExpireyDate() {
-        return (Date)expireyDate.clone();
+    public Date getExpirationDate() {
+        return (Date)expirationDate.clone();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cardNumber, holderName, ccvNumber, expireyDate);
+        return Objects.hash(cardNumber, holderName, ccvNumber, expirationDate);
     }
 
     @Override
@@ -82,7 +87,7 @@ public class Card implements Serializable{
         if (!Objects.equals(this.ccvNumber, other.ccvNumber)) {
             return false;
         }
-        return Objects.equals(this.expireyDate, other.expireyDate);
+        return Objects.equals(this.expirationDate, other.expirationDate);
     }
     
     

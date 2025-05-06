@@ -6,8 +6,6 @@ package eshop.launcher;
 
 import eshop.users.Customer;
 import eshop.users.CustomerDatabase;
-import eshop.users.Card;
-import eshop.users.Address;
 import eshop.util.Util;
 import java.util.Map;
 
@@ -84,7 +82,7 @@ public class CustomerRegistrationMenu extends Menu {
 //            e.printStackTrace();
 //            Util.pause(input);
 //        }
-        setOptions("Username: " + username, "Password: " + censored, "Name: " + name, "Age: " + ageStr, "Confirm");
+        setOptions("Username: " + username, "Password: " + censored, "Name: " + name, "Age: " + ageStr, "Confirm", "Back");
     }
     
     //returns whether all the fields are valid, and prints which fields are invalid

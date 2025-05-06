@@ -6,6 +6,8 @@ package eshop.view;
 
 import eshop.launcher.Eshop;
 import eshop.launcher.Menu;
+import eshop.launcher.PaymentForm;
+import eshop.products.Catalog;
 import eshop.products.Product;
 import eshop.users.Basket;
 import eshop.users.BasketItem;
@@ -21,6 +23,7 @@ public class BasketViewer extends Menu {
     
     private Customer customer;
     private Basket basket;
+    private Catalog catalog;
     private List<BasketItem> itemList;
     private Menu returnMenu;
     private int initialSize;
@@ -35,10 +38,17 @@ public class BasketViewer extends Menu {
         this.returnMenu = returnMenu;
         this.customer = (Customer)eshop.getActiveUser();
         this.basket = customer.getBasket();
+        this.catalog = eshop.getCatalog();
         header = "BASKET";
         itemList = basket.getList();
         initialSize = basket.getBasketTable().size();
         pageNum = 1;
+        for(BasketItem item : itemList) {
+            if(catalog.get(item.getProductId()) == null)
+                basket.remove(item.getProductId());
+            else
+                item.setProduct(catalog.get(item.getProductId()));
+        }
         updateOptions();
     }
     
@@ -55,7 +65,7 @@ public class BasketViewer extends Menu {
         if(pageNum > lastPage)
             pageNum = lastPage;
         if(itemList.isEmpty()) {
-            System.out.println("No products found" + "\n".repeat(19));
+            System.out.println("No items found" + "\n".repeat(19));
         }
         else {
             int lower = pageNum * 10 - 10;
@@ -84,8 +94,39 @@ public class BasketViewer extends Menu {
     public void select(int optionNum) {
         switch(optionNum) {
             case 1:
-                if(customer.getPaymentCard() == null || customer.getShippingAddress() == null)
-                    System.out.println("Payment information ");
+                if(basket.getBasketTable().isEmpty()) {
+                    System.out.println("Basket is empty");
+                    Util.pause(input);
+                    break;
+                }
+                if(customer.getPaymentCard() == null || customer.getShippingAddress() == null) {
+                    eshop.setActiveMenu(new PaymentForm(eshop, this));
+                    break;
+                }
+                boolean canPurchase = true;
+                for(BasketItem item : itemList) {
+                    if(!item.isAvailable()) {
+                        System.out.println("One or more items is no longer available");
+                        Util.pause(input);
+                        canPurchase = false;
+                        break;
+                    }
+                }
+                if(!canPurchase)
+                    break;
+                for(BasketItem item : itemList) {
+                    Product product = catalog.get(item.getProductId());
+                    int amountToBuy = item.getAmountToBuy();
+                    int quantity = product.getQuantity();
+                    int newQuantity = quantity - amountToBuy;
+                    if(item.getAmountToBuy() == product.getQuantity())
+                        catalog.delete(product.getProductId());
+                    else
+                        product.setQuantity(newQuantity);
+                    basket.remove(item.getProductId());
+                }
+                System.out.println("Purchase successful");
+                Util.pause(input);
                 break;
             case 2:
                 System.out.print("Enter product ID or listing num.: ");
@@ -164,6 +205,8 @@ public class BasketViewer extends Menu {
                     pageNum++;
                 break;
             case 8:
+                if(returnMenu instanceof ProductBrowser productBrowser)
+                    productBrowser.setProductList(catalog.getList());
                 eshop.setActiveMenu(returnMenu);
                 break;
             default:
@@ -171,6 +214,9 @@ public class BasketViewer extends Menu {
                 Util.pause(input);
         }
     }
+    
+    
+    
     private void updateOptions() {
         setOptions("Purchase", "Select product", "Set amount to purchase", "Remove from cart", "Select page", "Previous page", "Next page", "Back");
         itemList = basket.getList();

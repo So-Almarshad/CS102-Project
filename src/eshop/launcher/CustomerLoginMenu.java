@@ -4,10 +4,12 @@
  */
 package eshop.launcher;
 
-import eshop.view.ProductBrowser;
 import eshop.util.Util;
 import eshop.users.Customer;
 import eshop.users.CustomerDatabase;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /**
  *
@@ -60,6 +62,11 @@ public class CustomerLoginMenu extends Menu {
         Customer customer = customerDatabase.getCustomerTable().get(username);
         if(customer == null)
             return false;
-        return password.equals(customer.getPassword());
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+            byte[] digest = messageDigest.digest(password.getBytes());
+            return Arrays.equals(digest, customer.getPassword());
+        } catch(NoSuchAlgorithmException e) {e.printStackTrace();}
+        return false;
     }
 }

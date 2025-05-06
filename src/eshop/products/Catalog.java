@@ -73,6 +73,7 @@ public class Catalog implements Serializable{
     public void delete(String productID) {
         if(this.contains(productID)) {
             productTable.remove(productID);
+            productCount--;
         }
         else 
             throw new RuntimeException("Product does not exist");

@@ -4,7 +4,6 @@
  */
 package eshop.users;
 
-import java.io.*;
 /**
  *
  * @author abdul

@@ -6,13 +6,13 @@
 package eshop.users;
 
 import eshop.util.Util;
+import java.io.Serializable;
 import java.util.Objects;
 /**
  *
  * @author SAUD
  */
-public class Address {
-    
+public class Address implements Serializable{
     
     private String streetName;
     private String buildingNumber;
@@ -20,11 +20,16 @@ public class Address {
 
     public Address(String streetName, String buildingNumber, String postCode) {
         this.streetName = streetName;
-        this.buildingNumber = buildingNumber;
         
-        if (Util.isInteger(postCode))
+        if(Util.isNumeric(buildingNumber))
+            this.buildingNumber = buildingNumber;
+        else 
+            throw new IllegalArgumentException("Building number should be numeric");
+        
+        if (Util.isNumeric(postCode))
             this.postCode = postCode;
-        else throw new IllegalArgumentException("Post Code should be numeric");
+        else 
+            throw new IllegalArgumentException("Post Code should be numeric");
     }
 
     /******GETTERS & SETTERS******/
